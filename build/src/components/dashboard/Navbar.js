@@ -4,8 +4,8 @@ import teztileLogo from "../../img/tezTile.png"
 import { useDispatch } from "react-redux";
 import { connectSocketThunk } from "../../api/socketSlice";
 
-import { manageFunc } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { manageFunc } from "../../providers/state-provider";
 
 
 

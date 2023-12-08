@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import pattern from '../../img/zigzag_small.png'
-import { manageFunc } from '../../App';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { joinGame } from '../../api/operations/teztris';
+import { manageFunc } from '../../providers/state-provider';
 
 
 

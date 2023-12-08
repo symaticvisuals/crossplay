@@ -5,9 +5,10 @@ import NFTs from './NFTs';
 import MatchHistory from './MatchHistory';
 import Navbar from '../dashboard/Navbar';
 import axios from "axios";
-import {manageFunc} from '../../App'
+
 import { URL } from '../../api/socket';
 import heart from '../../img/heart.png'
+import { manageFunc } from '../../providers/state-provider';
 
 const Profile = () => {
   const { userWallet } = useContext(manageFunc);

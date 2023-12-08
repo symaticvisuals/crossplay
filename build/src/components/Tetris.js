@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { manageFunc } from "../App";
 import { createStage, checkCollision } from "../gameHelpers";
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 
@@ -30,6 +29,7 @@ import { enqueueSnackbar } from "notistack";
 import ResultModal from './Modal';
 import useSound from 'use-sound';
 import music from '../img/music.mp3';
+import { manageFunc } from "../providers/state-provider";
 
 // const socket = require("../api/socket").socket;
 

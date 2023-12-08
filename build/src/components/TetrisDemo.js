@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { manageFunc } from "../App";
 import { createStage, checkCollision } from "../gameHelpers";
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 
@@ -30,6 +29,7 @@ import { useSelector } from 'react-redux';
 import { connectSocket } from "../api/socket";
 import { enqueueSnackbar } from "notistack";
 import ResultModal from './Modal';
+import { manageFunc } from "../providers/state-provider";
 
 // const socket = require("../api/socket").socket;
 

@@ -3,16 +3,63 @@ import Tetris from './components/Tetris';
 import Landing from './components/landing/Landing';
 import StartGame from './components/StartGame';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { connectSocketThunk } from './api/socketSlice';
+
 import Home from './components/dashboard/Home';
 import Profile from './components/profile/Profile';
 import { Provider } from 'react-redux';
 import store from './api/store';
 import { SnackbarProvider } from 'notistack';
 import TetrisDemo from './components/TetrisDemo';
+import {
+  createWeb3Modal,
+  defaultConfig,
+} from '@web3modal/ethers5/react'
 
-const manageFunc = React.createContext(null);
+const projectId = '43349151a863ce091bab8f40d43d800f'
+const chains = [
+  {
+    chainId: 1,
+    name: 'Ethereum',
+    currency: 'ETH',
+    explorerUrl: 'https://etherscan.io',
+    rpcUrl: 'https://cloudflare-eth.com'
+  },
+  {
+    chainId: 42161,
+    name: 'Arbitrum',
+    currency: 'ETH',
+    explorerUrl: 'https://arbiscan.io',
+    rpcUrl: 'https://arb1.arbitrum.io/rpc'
+  }
+]
+
+const ethersConfig = defaultConfig({
+  metadata: {
+    name: 'Web3Modal',
+    description: 'Web3Modal Laboratory',
+    url: 'https://web3modal.com',
+    icons: ['https://avatars.githubusercontent.com/u/37784886']
+  },
+  defaultChainId: 1,
+  rpcUrl: 'https://cloudflare-eth.com'
+})
+
+// 3. Create modal
+createWeb3Modal({
+  ethersConfig,
+  chains,
+  projectId,
+  enableAnalytics: true,
+  themeMode: 'light',
+  themeVariables: {
+    '--w3m-color-mix': '#00DCFF',
+    '--w3m-color-mix-strength': 20
+  }
+})
+
+
+
+
 
 function App() {
 
@@ -41,4 +88,4 @@ function App() {
   );
 }
 
-export { manageFunc, App };
+export default App ;

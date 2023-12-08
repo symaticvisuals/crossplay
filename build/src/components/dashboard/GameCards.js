@@ -4,8 +4,8 @@ import CreateGame from './JoinGame'
 import JoinGame from './CreateGame'
 import './scss/GameCards.scss'
 import PublicRooms from './PublicRooms';
-import { manageFunc } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import { manageFunc } from '../../providers/state-provider';
 function GameCards() {
     const [createJoinSwap, setCreateJoinSwap] = useState(false);
     const { userWallet } = useContext(manageFunc);

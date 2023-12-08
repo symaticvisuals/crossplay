@@ -15,10 +15,10 @@ import FormControl from '@mui/material/FormControl';
 import Select  from '@mui/material/Select';
 import { createGame ,joinGame, removeGame} from '../api/operations/teztris';
 import {v4 as uuidv4} from 'uuid';
-import {useNavigate} from 'react-router-dom';
-import { manageFunc } from '../App';
+
 import Loader from './Loader'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { manageFunc } from '../providers/state-provider';
 // import { connectSocket } from '../api/socket';
 
 

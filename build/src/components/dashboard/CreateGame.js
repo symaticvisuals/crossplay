@@ -5,9 +5,9 @@ import pattern from '../../img/zigzag_small.png'
 import { useSelector } from 'react-redux';
 import {v4 as uuidv4} from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import { manageFunc } from '../../App';
 import { SnackbarProvider, enqueueSnackbar } from 'notistack'
 import { createGame, removeGame } from '../../api/operations/teztris';
+import { manageFunc } from '../../providers/state-provider';
 
 
 
