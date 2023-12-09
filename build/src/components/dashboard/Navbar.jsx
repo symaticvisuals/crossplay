@@ -41,7 +41,7 @@ function Navbar() {
       </div>
 
       <ConnectButton />
-      <div className="walletContainer">
+      {/* <div className="walletContainer">
         {walletConnected && (
           <img
             src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
@@ -53,7 +53,7 @@ function Navbar() {
         <button onClick={connectWallet} className={styles.button}>
           {walletDisplayText}
         </button>
-      </div>
+      </div> */}
     </nav>
   );
 }
