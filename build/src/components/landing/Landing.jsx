@@ -8,14 +8,17 @@ import Works from './Works'
 
 function Landing() {
   return (
-    <>
+    <div style={{
+      backgroundColor: '#000',
+      color:"white"
+    }}>
     <Hero />
     <Info />
     <Works />
     <Why />
     {/* <Partners /> */}
     <Footer />
-    </>
+    </div>
   )
 }
 

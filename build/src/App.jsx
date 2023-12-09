@@ -13,8 +13,6 @@ import TetrisDemo from './components/TetrisDemo';
 import { manageFunc } from './providers/state-provider';
 
 
-
-
 function App() {
 
 
@@ -24,6 +22,7 @@ function App() {
   const [createdGame, setCreatedGame] = useState(false);
 
   return (
+   
     <Provider store={store}>
    
       <SnackbarProvider />

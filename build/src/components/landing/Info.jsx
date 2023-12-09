@@ -1,6 +1,6 @@
 import React from 'react'
 import circles from '../../img/pattern_circle.png'
-import './scss/Info.scss'
+import './scss/Info.css'
 
 function Info() {
   return (

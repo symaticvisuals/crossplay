@@ -1,5 +1,5 @@
-import React from 'react'
-import './scss/Footer.scss'
+
+import './scss/Footer.css'
 import tezTile from '../../img/tezTile.png'
 import proudly_tez from '../../img/proudly_tez.png'
 import discord from '../../img/Discord.png';
@@ -15,7 +15,7 @@ function Footer() {
             <img className='logo' src={tezTile} alt="" />
             <div className="socials">
                 <a href="#"  target="_blank"><img src={github} alt="" /></a>
-                <a href="https://twitter.com/teztile" target="_blank"><img src={twitter} alt="" /></a>
+                <a href="https://twitter.com/teztile" target="_blank" rel="noreferrer"><img src={twitter} alt="" /></a>
                 <a href="#" target="_blank"><img src={telegram} alt="" /></a>
                 <a href="#" target="_blank"><img src={discord} alt="" /></a>
             </div>

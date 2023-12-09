@@ -1,6 +1,6 @@
 import React from 'react'
 import sum from '../../img/divider-black.png'
-import './scss/Info.scss'
+import './scss/Info.css'
 
 function Why() {
   return (

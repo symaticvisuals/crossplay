@@ -2,7 +2,7 @@ import  { useContext, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import CreateGame from './JoinGame'
 import JoinGame from './CreateGame'
-import './scss/GameCards.scss'
+import './scss/GameCards.css'
 import PublicRooms from './PublicRooms';
 import { useNavigate } from 'react-router-dom';
 import { manageFunc } from '../../providers/state-provider';
@@ -15,7 +15,7 @@ function GameCards() {
     return (
       
         userWallet ? 
-        <div className="cardWrapper">
+        <div className={'cardWrapper'}>
           <PublicRooms />
           <SwitchTransition>
             <CSSTransition
@@ -23,7 +23,7 @@ function GameCards() {
               addEndListener={(node, done) => {
                 node.addEventListener('transitionend', done, false);
               }}
-              classNames="slide"
+              classNames={'slide'}
             >
               {createJoinSwap ? (
                 <CreateGame swapFunc={setCreateJoinSwap} />
@@ -34,13 +34,42 @@ function GameCards() {
           </SwitchTransition>
         </div>
         :
-        <div className='wallet-connect-message'>
-              <h3>{`Don't`} be a square! 
+        <div className={"wallet-connect-message"} 
+        // style={{
+        //   display: "flex", 
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        // }}
+        
+        >
+              <h3 
+              // style={{
+              //   color: "white",
+              //   fontSize: "1.5rem",
+              //   fontWeight: "bold",
+              //   textAlign: "center",
+              //   marginTop: "0px",
+              //   marginBottom: "0px",
+              
+              // }}
+              >{`Don't`} be a square! 
                 <br /> 
                 Connect your wallet to play Teztile and see your name at the
                  top of the leaderboard!</h3>
               <br />
-              <button onClick={()=>navigate('/demo',{replace:true})}> Try Demo</button>
+              <button onClick={()=>navigate('/demo',{replace:true})} 
+              // style={{
+              //   backgroundColor: "#FFC107",
+              //   color: "black",
+              //   fontSize: "1.5rem",
+              //   fontWeight: "bold",
+              //   padding: "10px 20px",
+              //   borderRadius: "10px",
+              //   border: "none",
+              //   cursor: "pointer",
+              
+              // }}
+              > Try Demo</button>
         </div>
       
     );
