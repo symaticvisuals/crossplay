@@ -24,7 +24,7 @@ export default function Hero() {
         <h1> The first video game to make it into space, <br />is now on tezos.</h1>
         <Link to={"/home"}><button>Play Now</button></Link>
       </ContentWrapper>
-      <a onClick={scrollToTop} class="scroll"><span></span></a>
+      <a onClick={scrollToTop} className="scroll"><span></span></a>
     </WrapperHome>
     </>
   )
