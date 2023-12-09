@@ -20,7 +20,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogoClick = () => navigate("/home");
+  const handleLogoClick = () => navigate("/demonew");
   const handleProfileClick = () => navigate("/profile");
 
   const selectNetwork = useCallback(async () => {

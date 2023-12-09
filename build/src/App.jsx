@@ -20,6 +20,7 @@ const manageFunc = React.createContext(null);
 function App() {
 
   const [gameOver, setGameOver] = useState(false);
+  const [point, setPoint] = useState(0);
   const [gameIdInput, setGameIdInput] = useState('');
   const [userWallet, setUserWallet] = useState(null);
   const [createdGame, setCreatedGame] = useState(false);
@@ -30,9 +31,9 @@ function App() {
    
       <SnackbarProvider />
       <BrowserRouter>
-        <manageFunc.Provider value={{ gameOver, setGameOver, gameIdInput, setGameIdInput ,userWallet, setUserWallet , createdGame, setCreatedGame}}>
+        <manageFunc.Provider value={{ gameOver, setGameOver, gameIdInput, setGameIdInput ,userWallet, setUserWallet , createdGame, setCreatedGame, point, setPoint}}>
           <Routes>
-            <Route path="/app" element={<Tetris />} />
+            <Route path="/app" element={<TetrisNew />} />
             <Route path="/demo" element={<TetrisDemo />} />
             <Route path="/demonew" element={<TetrisNew />} />
             <Route path="/start" element={<StartGame />} />
