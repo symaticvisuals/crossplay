@@ -10,7 +10,7 @@ import { connectSocketThunk } from "../../api/socketSlice";
 import { useNavigate } from "react-router-dom";
 import { manageFunc } from "../../providers/state-provider";
 import { open } from "../wallet";
-import { IoIosArrowDroprightCircle } from 'react-icons/io'; // Import other icons
+import { IoIosWallet } from 'react-icons/io'; // Import other icons
 
 
 function Navbar() {
@@ -67,6 +67,13 @@ function Navbar() {
     alignItems: "center",
     columnGap: "10px",
       }}>
+        <button onClick={selectNetwork} className={styles.button}>
+          {/* {console.log("isConnected inside return", isConnected)} */}
+          {isConnected ? `${address.slice(0, 5)}...${address.slice(-4)}` : "Connect Wallet"}
+        </button>
+        <button onClick={connectWallet} className={styles.button}> 
+        <IoIosWallet /> 
+        </button>
         {walletConnected && (
           <img
             src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
@@ -75,13 +82,6 @@ function Navbar() {
             onClick={handleProfileClick}
           />
         )}
-        <button onClick={selectNetwork} className={styles.button}>
-          {/* {console.log("isConnected inside return", isConnected)} */}
-          {isConnected ? `${address.slice(0, 5)}...${address.slice(-4)}` : "Connect Wallet"}
-        </button>
-        <button onClick={connectWallet} className={styles.button}> 
-        <IoIosArrowDroprightCircle /> 
-      </button>
       </div>
 
       
