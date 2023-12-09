@@ -1,7 +1,10 @@
 .root-game{
     height: 100vh;
     width: 100vw;
-    background: url('../img/pxfuel.jpg');
+    background: url('../img/game-background.png');
+    background-size: cover;
+    background-position: calc(50% );
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
 
@@ -31,6 +34,8 @@
 .game-board{
     border: solid;
     border-color: antiquewhite;
+    width: 25em;
+    height: 70vh;
 }
 .score{
 

@@ -19,10 +19,11 @@ body {
 
 .heading-network-selector{
   color: white;
-  font-size: 2em;
+  font-size: 50px;
   margin-bottom: 1em;
+  color: #D14FFF;
   text-align: center;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
 
 }
 
