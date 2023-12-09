@@ -12,6 +12,7 @@ import { SnackbarProvider } from 'notistack';
 import TetrisDemo from './components/TetrisDemo';
 // import { manageFunc } from './providers/state-provider';
 import NetworkSelector from './components/selector/NetworkSelector';
+import TetrisNew from './components/TetrisNew';
 
 const manageFunc = React.createContext(null);
 
@@ -33,6 +34,7 @@ function App() {
           <Routes>
             <Route path="/app" element={<Tetris />} />
             <Route path="/demo" element={<TetrisDemo />} />
+            <Route path="/demonew" element={<TetrisNew />} />
             <Route path="/start" element={<StartGame />} />
             <Route path="/home" element={<Home />} />
             <Route path="/select" element={<NetworkSelector />} />

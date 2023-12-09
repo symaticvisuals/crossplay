@@ -1,0 +1,65 @@
+.root-game{
+    height: 100vh;
+    width: 100vw;
+    background: url('../img/pxfuel.jpg');
+    display: flex;
+    justify-content: center;
+
+}
+.game-screen{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 50vw;
+}
+.game-screen h1{
+    color: white;
+    font-size: 5em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+
+}
+.game-block {
+    margin: 0;
+    padding: 0;
+    width: 1.5em;
+    height: 1.5em;
+    /* border: 1px solid #ddd; */
+  }
+.game-board{
+    border: solid;
+    border-color: antiquewhite;
+}
+.score{
+
+}
+.instruct{
+    
+}
+
+  .piece-i {
+    background-color: #50e4e6;
+  }
+  .piece-j {
+    background-color: #245fdf;
+  }
+  .piece-l {
+    background-color: #aef8c6;
+  }
+  .piece-o {
+    background-color: #7a52ff;
+  }
+  .piece-s {
+    background-color: #ff4e9d;
+  }
+  .piece-t {
+    background-color: #fe4524;
+  }
+  .piece-z {
+    background-color: #fdc52b;
+  }
+  .piece-preview {
+    background-color: rgba(238, 238, 238, 0.334);
+  }

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { manageFunc } from "../App";
 import { createStage, checkCollision } from "../gameHelpers";
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 
@@ -13,7 +14,7 @@ import { useGameStatus } from "../hooks/useGameStatus";
 import Stage from "./Stage";
 import Display from "./Display";
 import StartButton from "./StartButton";
-
+import { FetchWalletAPI } from "../api/operations/wallet";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
@@ -29,7 +30,6 @@ import { enqueueSnackbar } from "notistack";
 import ResultModal from './Modal';
 import useSound from 'use-sound';
 import music from '../img/music.mp3';
-import { manageFunc } from "../App";
 
 // const socket = require("../api/socket").socket;
 
@@ -77,7 +77,9 @@ const Tetris = () => {
       margin: 10px;
     `;
   const getAddress = async () => {
-   
+    const wal = await FetchWalletAPI();
+    // console.log("fetched wallet", wal);
+    setAddress(wal.wallet);
   };
 
   useEffect(() => {
