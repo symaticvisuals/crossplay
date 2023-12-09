@@ -73,9 +73,9 @@ function JoinGame({ swapFunc }) {
       alert("cant join a game, end your created game first!");
       return;
     }
-
+    console.log(matchData.tokenData.amount,uuid,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS,"before create game")
     // const createGameApi = await createGame(matchData.tokenData.amount,matchData.tokenData.betToken,matchData.tokenData.betTokenId,matchData.tokenData.betTokenType,6,uuid);
-    const createGameApi = await createGame(matchData.tokenData.amount,uuid,walletProvider,CONFIG.ARBITRUM.ADDRESS);
+    const createGameApi = await createGame(matchData.tokenData.amount,uuid,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS);
     if (createGameApi.success === true) {
       socket.emit("playerJoins", {
          "gameId": uuid ,

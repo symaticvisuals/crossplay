@@ -83,7 +83,7 @@ function CreateGame({swapFunc}) {
     console.log(CONFIG[getChainNameByChainId(chainId)].ADDRESS,"create game json")
     const createGameApi = await createGame(tokenAmount,tuid,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS);
     if (createGameApi.success === true) {
-      // socket.emit("createNewGame", createGameJson);
+      socket.emit("createNewGame", createGameJson);
       enqueueSnackbar('Game created successfully.', {anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'right'

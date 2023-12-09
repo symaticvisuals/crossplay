@@ -4,11 +4,18 @@ import { createGame } from '../../api/operations/teztris';
 import { useNavigate } from 'react-router-dom';
 import { manageFunc } from '../../App';
 import "../../components/dashboard/scss/GameCards.css"
+import {
+  useWeb3ModalProvider,
+  useWeb3ModalAccount
+} from '@web3modal/ethers/react'
+import { CONFIG, getChainNameByChainId } from '../../common/const';
 
 function PublicRooms() {
   const socket = useSelector((state) => state.socket.socket); 
   const {gameIdInput, setGameIdInput , createdGame } = useContext(manageFunc);
   const navigate = useNavigate();
+  const { walletProvider } =  useWeb3ModalProvider();
+  const { address, chainId, isConnected } = useWeb3ModalAccount()
 
   // const rooms = [
   //   {
@@ -40,9 +47,10 @@ function PublicRooms() {
       return
     }
     setLoading(true);
-      const createGameApi = await createGame(room.tokenData.amount,room.tokenData.betToken,room.tokenData.betTokenId,room.tokenData.betTokenType,6,room.roomId);
+      const createGameApi = await createGame(room.tokenData.amount,room.roomId,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS);
+      // const createGameApi = await createGame(room.tokenData.amount,room.tokenData.betToken,room.tokenData.betTokenId,room.tokenData.betTokenType,6,room.roomId);
       if (createGameApi.success === true) {
-      socket.emit('playerJoins', {"gameId":room.roomId})
+      socket.emit('playerJoins', {"gameId":room.roomId,"opponentChain":getChainNameByChainId(chainId)})
       setGameIdInput(room.roomId)
       console.log(gameIdInput)
       navigate("/app",{replace:true});

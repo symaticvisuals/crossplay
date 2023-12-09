@@ -97,7 +97,7 @@ const TetrisNew = () => {
       };
     useEffect(()=>{
         if((point>=opponentScore) && !(winNotif) && !(gameOver)){
-          setWinnerDeclare(true)
+        //   setWinnerDeclare(true)
           console.log("you're winner, first UE")
           enqueueSnackbar(`Congrats, you surpassed your opponent's score.`, {anchorOrigin: {
             vertical: 'bottom',
@@ -117,7 +117,7 @@ const TetrisNew = () => {
       })
       useEffect(()=>{
         if((point>=opponentScore) && !(winNotif) ){
-          setWinnerDeclare(true)
+        //   setWinnerDeclare(true)
           console.log("you're winner, first UE")
           setGameResult("win")
         }
@@ -162,6 +162,7 @@ const TetrisNew = () => {
 
     return (
         <div className='root-game' >
+               <ResultModal isOpen={isModalOpen} result={gameResult} onClose={handleModalClose} />
             <Tetris
             keyboardControls={{
                 // Default values shown here. These will be used if no
