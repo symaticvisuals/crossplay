@@ -1,48 +1,55 @@
-import React, { useState } from 'react';
-import './NetworkSelector.css'; // You can create a CSS file for styling
-// import {  } from 'react-icons/ri'; // Import Ethereum icon
-import { IoIosArrowDroprightCircle } from 'react-icons/io'; // Import other icons
+import React from "react";
+import "./NetworkSelector.css";
+import AnimatedCard from "./AnimatedCard"; // Import the AnimatedCard component
+import polygon from "./chain/polygon-6926578-5650860.png";
+import base from "./chain/base.png";
+import arbitrum from "./chain/arbitrum-9828481-7947843.png";
+import celo from "./chain/vecteezy_celo-glass-crypto-coin-3d-illustration_24092750.png";
+import mantle from "./chain/8000679.webp";
+import scroll from "./chain/old-scroll-8619003-6858288.png";
 
 const NetworkSelector = ({ onSelectChain }) => {
   const chains = [
-    { name: 'Ethereum', icon: <IoIosArrowDroprightCircle /> },
-    { name: 'Ethereum Testnet', icon: <IoIosArrowDroprightCircle /> },
-    { name: 'Polygon', icon: <IoIosArrowDroprightCircle /> },
-    { name: 'Arbitrum', icon: <IoIosArrowDroprightCircle /> },
-    { name: 'Mantle', icon: <IoIosArrowDroprightCircle /> },
-    { name: 'Base Sepolia', icon: <IoIosArrowDroprightCircle /> },
+    { name: "Ethereum", image: polygon },
+    { name: "Ethereum Testnet", image: arbitrum },
+    { name: "Ethereum", image: celo },
+    { name: "Ethereum Testnet", image: mantle },
+    { name: "Ethereum", image: scroll },
+    { name: "Ethereum Testnet", image: base },
   ];
-
-//   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-
-//   const handleMouseMove = (e) => {
-//     setCursorPosition({ x: e.clientX, y: e.clientY });
-//   };
 
   const handleSelect = (chainName) => {
     onSelectChain(chainName);
   };
 
   return (
-    <div
-      className="network-selector"
-    //   onMouseMove={handleMouseMove}
-    >
-      {chains.map((chain, index) => (
-        <div
-          key={chain.name}
-          className={`chain-card ${chain.name.toLowerCase()}`}
-          style={{
-            // background: `linear-gradient(45deg, #FF00D0, #00FFEA)`,
-            // boxShadow: `0 0 10px rgba(255, 0, 208, 0.8), 0 0 20px rgba(0, 255, 234, 0.8)`,
-            // transform: `translate(${cursorPosition.x * 0.02 * index}px, ${cursorPosition.y * 0.02 * index}px)`,
-          }}
-          onClick={() => handleSelect(chain.name)}
-        >
-          <div className="chain-icon">{chain.icon}</div>
-          <div className="chain-name">{chain.name}</div>
-        </div>
-      ))}
+    <div className="">
+      <h1 className="heading-network-selector">Select your Poison</h1>
+      <div className="network-selector">
+        {chains.map((chain, index) => (
+          <AnimatedCard
+            key={chain.name}
+            className={`chain-card ${chain.name.toLowerCase()}`}
+            onClick={() => handleSelect(chain.name)}
+          >
+            <img
+              src={chain.image}
+              alt=""
+              style={{
+                width: "150px",
+                height: "150px",
+              }}
+            />
+            {/* {chain.name} */}
+          </AnimatedCard>
+        ))}
+      </div>
+      <div className="container-button-network">
+
+      <button className="network-selector-button">
+        {`Let's Start`}
+      </button>
+      </div>
     </div>
   );
 };

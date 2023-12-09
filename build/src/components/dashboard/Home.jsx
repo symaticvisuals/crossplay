@@ -6,17 +6,23 @@ import GameCards from './GameCards';
 
 function Home() {
   return (
+    <div className="home-wrapper">
+
     <div className="home">
+      <div className="background-handler">
+
       <Navbar />
       {/* <button onClick={() => enqueueSnackbar('That was easy!', {anchorOrigin: {
-    vertical: 'bottom',
-    horizontal: 'right'
-  }})}>Show snackbar</button> */}
+        vertical: 'bottom',
+        horizontal: 'right'
+      }})}>Show snackbar</button> */}
       <div className="wrapper">
         <Leaderboard />
         <GameCards />
       </div>
+      </div>
     </div>
+      </div>
   )
 }
 
