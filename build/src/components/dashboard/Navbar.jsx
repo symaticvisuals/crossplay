@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useCallback } from "react";
-import  "./scss/Navbar.scss";
+
 import styles from "./scss/Navbar.module.scss";
 import teztileLogo from "../../img/tezTile.png";
 import { useDispatch } from "react-redux";
