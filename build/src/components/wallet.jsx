@@ -1,16 +1,18 @@
 import { useWeb3Modal } from '@web3modal/ethers/react'
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
+// import { EthereumMainnet, PolygonZkSyncTestnet } from '../common/config'
+import { ArbitrumTestnet,
+    BaseSepoliaTestnet,
+    EthereumMainnet,
+    EthereumTestnet,
+    MantleTestnet,
+    PolygonZkEVMTestnet,
+    zkSyncScrollTestnet, } from '../common/config'
 
 const projectId = '43349151a863ce091bab8f40d43d800f'
 
 // 2. Set chains
-const mainnet = {
-  chainId: 1,
-  name: 'Ethereum',
-  currency: 'ETH',
-  explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'https://cloudflare-eth.com'
-}
+
 
 // 3. Create modal
 const metadata = {
@@ -22,7 +24,13 @@ const metadata = {
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [mainnet],
+  chains: [ArbitrumTestnet,
+    BaseSepoliaTestnet,
+    EthereumMainnet,
+    EthereumTestnet,
+    MantleTestnet,
+    PolygonZkEVMTestnet,
+    zkSyncScrollTestnet,],
   projectId
 })
 
