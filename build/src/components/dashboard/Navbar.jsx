@@ -1,12 +1,17 @@
 import { useContext, useEffect, useState, useCallback } from "react";
-
+import {
+  useWeb3ModalState,
+  useWeb3ModalAccount
+} from '@web3modal/ethers/react'
 import styles from "./scss/Navbar.module.scss";
 import teztileLogo from "../../img/tezTile.png";
 import { useDispatch } from "react-redux";
 import { connectSocketThunk } from "../../api/socketSlice";
 import { useNavigate } from "react-router-dom";
 import { manageFunc } from "../../providers/state-provider";
-import ConnectButton from "../wallet";
+import { open } from "../wallet";
+import { IoIosArrowDroprightCircle } from 'react-icons/io'; // Import other icons
+
 
 function Navbar() {
   const [walletButtonText, setWalletButtonText] = useState(null);
@@ -18,30 +23,50 @@ function Navbar() {
   const handleLogoClick = () => navigate("/home");
   const handleProfileClick = () => navigate("/profile");
 
+  const selectNetwork = useCallback(async () => {
+    // Implementation of wallet connection logic
+    open({ view: "Networks"});
+  }, [/* dependencies */]);
   const connectWallet = useCallback(async () => {
     // Implementation of wallet connection logic
+    open();
   }, [/* dependencies */]);
 
   const autoFetchWallet = useCallback(async () => {
     // Implementation of auto-fetch wallet logic
   }, [/* dependencies */]);
-
+  
+  // const walletDisplayText = walletConnected
+  // ? `${walletButtonText.slice(0, 5)}...${walletButtonText.slice(-4)}`
+  // : "Connect Wallet";
+  const state = useWeb3ModalState();
+  const { address, chainId, isConnected } = useWeb3ModalAccount()
+  
   useEffect(() => {
-    autoFetchWallet();
-  }, [autoFetchWallet]);
+    if (address) {
+      console.log("isConnected inside useeffect");
+      setWalletConnected(true);
+      // walletDisplayText(address);
+      // setUserWallet(address);
+      // setWalletButtonText(address);
+      dispatch(connectSocketThunk(address));
+    } 
+  },[address]);
 
-  const walletDisplayText = walletConnected
-    ? `${walletButtonText.slice(0, 5)}...${walletButtonText.slice(-4)}`
-    : "Connect Wallet";
-
+  console.log(state,address, chainId, isConnected)
   return (
     <nav className={styles.nav}>
       <div className="logo-container" onClick={handleLogoClick}>
         <img src={teztileLogo} alt="Logo" className={styles.logo} />
       </div>
 
-      <ConnectButton />
-      {/* <div className="walletContainer">
+      {/* <ConnectButton /> */}
+      <div className="walletContainer"
+      style={{
+        display: "flex",
+    alignItems: "center",
+    columnGap: "10px",
+      }}>
         {walletConnected && (
           <img
             src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
@@ -50,10 +75,16 @@ function Navbar() {
             onClick={handleProfileClick}
           />
         )}
-        <button onClick={connectWallet} className={styles.button}>
-          {walletDisplayText}
+        <button onClick={selectNetwork} className={styles.button}>
+          {/* {console.log("isConnected inside return", isConnected)} */}
+          {isConnected ? `${address.slice(0, 5)}...${address.slice(-4)}` : "Connect Wallet"}
         </button>
-      </div> */}
+        <button onClick={connectWallet} className={styles.button}> 
+        <IoIosArrowDroprightCircle /> 
+      </button>
+      </div>
+
+      
     </nav>
   );
 }

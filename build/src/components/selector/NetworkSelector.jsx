@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './NetworkSelector.css'; // You can create a CSS file for styling
 // import {  } from 'react-icons/ri'; // Import Ethereum icon
 import { IoIosArrowDroprightCircle } from 'react-icons/io'; // Import other icons
+import { open } from '../wallet';
 
-const NetworkSelector = ({ onSelectChain }) => {
+const NetworkSelector = () => {
   const chains = [
     { name: 'Ethereum', icon: <IoIosArrowDroprightCircle /> },
     { name: 'Ethereum Testnet', icon: <IoIosArrowDroprightCircle /> },
@@ -12,6 +13,10 @@ const NetworkSelector = ({ onSelectChain }) => {
     { name: 'Mantle', icon: <IoIosArrowDroprightCircle /> },
     { name: 'Base Sepolia', icon: <IoIosArrowDroprightCircle /> },
   ];
+  const onSelectChain = (chainName) => {
+    console.log(chainName);
+    open();
+  };    
 
 //   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
