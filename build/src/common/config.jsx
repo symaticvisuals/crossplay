@@ -1,8 +1,15 @@
-const ArbitrumTestnet = {
-    chainId: 421614,
-    name: 'Arbitrum Testnet (Rinkeby)',
+const ArbitrumMainnet = {
+    chainId: 42161,
+    name: 'Arbitrum Mainnet',
     currency: 'ETH',
     explorerUrl: 'https://rinkeby-explorer.arbitrum.io',
+    rpcUrl: 'https://arb-mainnet.g.alchemy.com/v2/demo'
+  };
+const ArbitrumTestnet = {
+    chainId: 421614,
+    name: 'Arbitrum Testnet sepolia',
+    currency: 'ETH',
+    explorerUrl: 'https://sepolia.arbiscan.io/',
     rpcUrl: 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public'
   };
   
@@ -56,6 +63,7 @@ const ArbitrumTestnet = {
 
   
   export { ArbitrumTestnet,
+    ArbitrumMainnet,
     BaseSepoliaTestnet,
     EthereumMainnet,
     EthereumTestnet,

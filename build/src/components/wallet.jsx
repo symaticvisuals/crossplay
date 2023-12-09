@@ -2,6 +2,7 @@ import { useWeb3Modal } from '@web3modal/ethers/react'
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 // import { EthereumMainnet, PolygonZkSyncTestnet } from '../common/config'
 import { ArbitrumTestnet,
+    ArbitrumMainnet,
     BaseSepoliaTestnet,
     EthereumMainnet,
     EthereumTestnet,
@@ -24,7 +25,9 @@ const metadata = {
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [ArbitrumTestnet,
+  chains: [
+    ArbitrumTestnet,
+    ArbitrumMainnet,
     BaseSepoliaTestnet,
     EthereumMainnet,
     EthereumTestnet,
