@@ -1,7 +1,6 @@
 import  { useContext, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import CreateGame from './JoinGame'
-import JoinGame from './CreateGame'
+import CreateGame from './createGame'
 import './scss/GameCards.css'
 import PublicRooms from './PublicRooms';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +18,7 @@ function GameCards() {
           <PublicRooms />
           <SwitchTransition>
             <CSSTransition
-              key={createJoinSwap ? 'CreateGame' : 'JoinGame'}
+              key={createJoinSwap ? 'CreateGame' : 'createGame'}
               addEndListener={(node, done) => {
                 node.addEventListener('transitionend', done, false);
               }}
@@ -28,7 +27,7 @@ function GameCards() {
               {createJoinSwap ? (
                 <CreateGame swapFunc={setCreateJoinSwap} />
               ) : (
-                <JoinGame swapFunc={setCreateJoinSwap} />
+                <createGame swapFunc={setCreateJoinSwap} />
               )}
             </CSSTransition>
           </SwitchTransition>

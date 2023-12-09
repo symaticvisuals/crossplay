@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { createGame, joinGame, removeGame } from "../api/operations/teztris";
+import { createGame, removeGame } from "../api/operations/teztris";
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -27,7 +27,7 @@ export default function Landing() {
   const [open, setOpen] = React.useState(false);
   const [token, setToken] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
-  const [openJoinGame, setopenJoinGame] = useState(false);
+  const [opencreateGame, setopencreateGame] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [maskedLoader, setMaskedLoader] = useState(false);
   const [game, setGame] = useState({});
@@ -197,18 +197,18 @@ export default function Landing() {
     setOpenDialog(false);
   };
 
-  const handleJoinGameClose = () => {
-    setopenJoinGame(false);
+  const handlecreateGameClose = () => {
+    setopencreateGame(false);
   };
 
-  const handleJoinGameOpen = () => {
-    setopenJoinGame(true);
-    handleJoinGame();
+  const handlecreateGameOpen = () => {
+    setopencreateGame(true);
+    handlecreateGame();
   };
 
   const startGame = async () => {
     setStartFlag(true);
-    joinGame(
+    createGame(
       Number(obj.amount),
       obj.betToken,
       obj.betTokenId,
@@ -218,7 +218,7 @@ export default function Landing() {
     ).then((game) => setGame(game));
   };
 
-  const handleJoinGame = async () => {
+  const handlecreateGame = async () => {
     connectSocket.emit("wantsToJoin", gameIdInput);
     // // console.log("emit done", gameIdInput);
     setEmitflag(true);
@@ -302,15 +302,15 @@ export default function Landing() {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={openJoinGame}
-        onClose={handleJoinGameClose}
+        open={opencreateGame}
+        onClose={handlecreateGameClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={openJoinGame}>
+        <Fade in={opencreateGame}>
           <Box sx={style}>
             <h2>Joining Game</h2>
             <ModalWrapper>
@@ -436,7 +436,7 @@ export default function Landing() {
               onChange={handleGameIdInput}
             />
             <br />
-            <button onClick={handleJoinGameOpen}>Join a game</button>
+            <button onClick={handlecreateGameOpen}>Join a game</button>
             {/* <button onClick={handleWinner}>Join a game</button> */}
           </div>
         </ContentWrapper>

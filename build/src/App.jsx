@@ -19,7 +19,7 @@ function App() {
 
   const [gameOver, setGameOver] = useState(false);
   const [gameIdInput, setGameIdInput] = useState('');
-  const [userWallet, setUsetWallet] = useState(null);
+  const [userWallet, setUsetWallet] = useState('');
   const [createdGame, setCreatedGame] = useState(false);
 
   return (

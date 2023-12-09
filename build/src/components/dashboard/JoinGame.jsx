@@ -3,13 +3,13 @@ import pattern from '../../img/zigzag_small.png'
 
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { joinGame } from '../../api/operations/teztris';
+import { createGame } from '../../api/operations/teztris';
 import { manageFunc } from '../../providers/state-provider';
 
 
 
 
-function JoinGame({ swapFunc }) {
+function createGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket); 
   const [uuid, setUuid] = useState('');
   const [response, setResponse] = useState(null);
@@ -44,7 +44,7 @@ function JoinGame({ swapFunc }) {
     }
   })
 
-  const handleJoinGame = async () =>{
+  const handlecreateGame = async () =>{
     setLoading(true)
     if (!matchData){
       alert("no match data found")
@@ -54,8 +54,8 @@ function JoinGame({ swapFunc }) {
       alert("cant join a game, end your created game first!")
       return
     }
-    const joinGameApi = await joinGame(matchData.tokenData.amount,matchData.tokenData.betToken,matchData.tokenData.betTokenId,matchData.tokenData.betTokenType,6,uuid);
-    if (joinGameApi.success === true) {
+    const createGameApi = await createGame(matchData.tokenData.amount,matchData.tokenData.betToken,matchData.tokenData.betTokenId,matchData.tokenData.betTokenType,6,uuid);
+    if (createGameApi.success === true) {
     socket.emit('playerJoins', {"gameId":uuid})
     setGameIdInput(uuid)
     }
@@ -96,7 +96,7 @@ function JoinGame({ swapFunc }) {
                       </span>
                       </div>: <img src={pattern}></img>
                     }
-                    <a href="#" class="orange-btn" onClick={handleJoinGame}> 
+                    <a href="#" class="orange-btn" onClick={handlecreateGame}> 
                     Join Game 
                     </a>
                 </div>
@@ -109,4 +109,4 @@ function JoinGame({ swapFunc }) {
   )
 }
 
-export default JoinGame
+export default createGame

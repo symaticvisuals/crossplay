@@ -1,5 +1,6 @@
 import { useWeb3Modal } from '@web3modal/ethers/react'
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
+import { ethers } from 'ethers'
 // import { EthereumMainnet, PolygonZkSyncTestnet } from '../common/config'
 import { ArbitrumTestnet,
     ArbitrumMainnet,
@@ -11,9 +12,6 @@ import { ArbitrumTestnet,
     zkSyncScrollTestnet, } from '../common/config'
 
 const projectId = '43349151a863ce091bab8f40d43d800f'
-
-// 2. Set chains
-
 
 // 3. Create modal
 const metadata = {
@@ -37,10 +35,13 @@ createWeb3Modal({
   projectId
 })
 
+export const { open } = useWeb3Modal()
+
+// Function to connect to MetaMask
+
 
 export default function ConnectButton() {
   // 4. Use modal hook
-  const { open } = useWeb3Modal()
 
   return (
     <>
