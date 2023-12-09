@@ -8,7 +8,7 @@ import axios from "axios";
 
 import { URL } from '../../api/socket';
 
-import { manageFunc } from '../../providers/state-provider';
+import { manageFunc } from '../../App';
 
 const Profile = () => {
   const { userWallet } = useContext(manageFunc);

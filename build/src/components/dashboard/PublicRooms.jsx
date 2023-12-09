@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createGame } from '../../api/operations/teztris';
 import { useNavigate } from 'react-router-dom';
-import { manageFunc } from '../../providers/state-provider';
+import { manageFunc } from '../../App';
 
 function PublicRooms() {
   const socket = useSelector((state) => state.socket.socket); 

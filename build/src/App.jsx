@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  React,{ useState } from 'react';
 import Tetris from './components/Tetris';
 import Landing from './components/landing/Landing';
 import StartGame from './components/StartGame';
@@ -10,16 +10,17 @@ import { Provider } from 'react-redux';
 import store from './api/store';
 import { SnackbarProvider } from 'notistack';
 import TetrisDemo from './components/TetrisDemo';
-import { manageFunc } from './providers/state-provider';
+// import { manageFunc } from './providers/state-provider';
 import NetworkSelector from './components/selector/NetworkSelector';
+
+const manageFunc = React.createContext(null);
 
 
 function App() {
 
-
   const [gameOver, setGameOver] = useState(false);
   const [gameIdInput, setGameIdInput] = useState('');
-  const [userWallet, setUsetWallet] = useState('');
+  const [userWallet, setUserWallet] = useState(null);
   const [createdGame, setCreatedGame] = useState(false);
 
   return (
@@ -28,7 +29,7 @@ function App() {
    
       <SnackbarProvider />
       <BrowserRouter>
-        <manageFunc.Provider value={{ gameOver, setGameOver, gameIdInput, setGameIdInput ,userWallet, setUsetWallet , createdGame, setCreatedGame}}>
+        <manageFunc.Provider value={{ gameOver, setGameOver, gameIdInput, setGameIdInput ,userWallet, setUserWallet , createdGame, setCreatedGame}}>
           <Routes>
             <Route path="/app" element={<Tetris />} />
             <Route path="/demo" element={<TetrisDemo />} />
@@ -45,4 +46,7 @@ function App() {
   );
 }
 
-export default App ;
+export {
+  App as default,
+  manageFunc,
+};

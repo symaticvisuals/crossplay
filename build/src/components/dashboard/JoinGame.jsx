@@ -4,7 +4,7 @@ import pattern from '../../img/zigzag_small.png'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createGame } from '../../api/operations/teztris';
-import { manageFunc } from '../../providers/state-provider';
+import { manageFunc } from '../../App';
 
 
 

@@ -29,7 +29,7 @@ import { useSelector } from 'react-redux';
 import { connectSocket } from "../api/socket";
 import { enqueueSnackbar } from "notistack";
 import ResultModal from './Modal';
-import { manageFunc } from "../providers/state-provider";
+import { manageFunc } from "../App";
 
 // const socket = require("../api/socket").socket;
 

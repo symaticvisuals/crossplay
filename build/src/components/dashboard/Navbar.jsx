@@ -8,7 +8,7 @@ import teztileLogo from "../../img/tezTile.png";
 import { useDispatch } from "react-redux";
 import { connectSocketThunk } from "../../api/socketSlice";
 import { useNavigate } from "react-router-dom";
-import { manageFunc } from "../../providers/state-provider";
+import { manageFunc } from "../../App";
 import { open } from "../wallet";
 import { IoIosWallet, IoIosSwap } from 'react-icons/io'; // Import other icons
 
@@ -47,10 +47,14 @@ function Navbar() {
       console.log("isConnected inside useeffect");
       setWalletConnected(true);
       // walletDisplayText(address);
-      // setUserWallet(address);
+      setUserWallet(address);
       // setWalletButtonText(address);
       dispatch(connectSocketThunk(address));
     } 
+    else {
+      setWalletConnected(false);
+      setUserWallet(null);
+    }
   },[address]);
 
   console.log(state,address, chainId, isConnected)

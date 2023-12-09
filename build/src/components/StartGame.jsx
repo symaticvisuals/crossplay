@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import Loader from "./Loader";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { manageFunc } from "../providers/state-provider";
+import { manageFunc } from "../App";
 import { useNavigate } from "react-router-dom";
 import { connectSocket } from "../api/socket";
 

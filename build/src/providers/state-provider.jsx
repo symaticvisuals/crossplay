@@ -1,14 +1,5 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
-const manageFunc = createContext({
-    gameOver: false,
-    setGameOver: () => {},
-    gameIdInput: "",
-    setGameIdInput: () => {},
-    userWallet: null,
-    setUserWallet: () => {},
-    createdGame: false,
-    setCreatedGame: () => {},
-});
+const manageFunc = React.createContext(null);
 
-export { manageFunc };
+// export { manageFunc };
