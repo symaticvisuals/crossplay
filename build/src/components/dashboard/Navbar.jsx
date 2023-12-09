@@ -27,6 +27,7 @@ function Navbar() {
   }, [address, dispatch, setUserWallet]);
 
   const handleLogoClick = () => navigate("/home");
+
   const handleProfileClick = () => navigate("/profile");
 
   const selectNetwork = useCallback(async () => {
