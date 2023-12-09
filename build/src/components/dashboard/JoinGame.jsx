@@ -1,10 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import pattern from "../../img/zigzag_small.png";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createGame } from "../../api/operations/teztris";
 import { manageFunc } from "../../App";
+
+import {
+
+  useWeb3ModalProvider
+} from '@web3modal/ethers/react'
+import { CONFIG } from "../../common/const";
+
 
 function JoinGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket);
@@ -15,6 +22,7 @@ function JoinGame({ swapFunc }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { gameIdInput, setGameIdInput, createdGame } = useContext(manageFunc);
+  const { walletProvider } =  useWeb3ModalProvider();
 
   const handleGameIdInput = (event) => {
     const gameUuid = event.target.value;
@@ -63,14 +71,9 @@ function JoinGame({ swapFunc }) {
       alert("cant join a game, end your created game first!");
       return;
     }
-    const createGameApi = await createGame(
-      matchData.tokenData.amount,
-      matchData.tokenData.betToken,
-      matchData.tokenData.betTokenId,
-      matchData.tokenData.betTokenType,
-      6,
-      uuid
-    );
+
+    // const createGameApi = await createGame(matchData.tokenData.amount,matchData.tokenData.betToken,matchData.tokenData.betTokenId,matchData.tokenData.betTokenType,6,uuid);
+    const createGameApi = await createGame(matchData.tokenData.amount,uuid,walletProvider,CONFIG.ARBITRUM.ADDRESS);
     if (createGameApi.success === true) {
       socket.emit("playerJoins", { gameId: uuid });
       setGameIdInput(uuid);
