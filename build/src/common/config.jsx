@@ -60,7 +60,6 @@ const ArbitrumTestnet = {
     explorerUrl: 'https://zkscan.io/scroll',
     rpcUrl: 'https://sepolia-rpc.scroll.io'
   };
-
   
   export { ArbitrumTestnet,
     ArbitrumMainnet,
