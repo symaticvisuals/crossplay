@@ -1,0 +1,66 @@
+.section .wrapper {
+    padding: 4rem 0 4rem 4rem;
+    font-size: 1.8rem;
+  }
+  .section .wrapper h1 {
+    font-size: 3.5rem;
+  }
+  .section .wrapper .body {
+    padding: 0;
+    display: flex;
+  }
+  .section .wrapper .body .left {
+    width: 60%;
+  }
+  .section .wrapper .body .left .item {
+    display: flex;
+    align-items: center;
+    margin: 1.4rem 0;
+  }
+  .section .wrapper .body .left .item img {
+    height: 80px;
+    width: 80px;
+    margin-right: 1rem;
+  }
+  .section .wrapper .body .left .item p {
+    margin: 0;
+    font-size: 1.4rem;
+    padding: 0 1rem;
+  }
+  .section .wrapper .body .right {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+  .section .wrapper .body .right img {
+    object-fit: contain;
+    width: 80%;
+  }
+  .section img.pattern {
+    padding: 2rem 0;
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    .section .wrapper {
+      font-size: 1.5rem;
+      padding: 2rem;
+    }
+    .section .wrapper h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+    }
+    .section .wrapper .body .right {
+      display: none;
+    }
+    .section .wrapper .body .left {
+      width: 100%;
+    }
+    .section .wrapper .body .left .item p {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+    img.pattern {
+      width: auto !important;
+      height: 150px;
+    }
+  }

@@ -1,47 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import "./scss/Leaderboard.scss"
+import  { useEffect, useState } from 'react'
+import styles from "./scss/Leaderboard.module.scss"
 import axios from "axios";
 import { URL } from '../../api/socket';
-
-
-// const LeaderboardStats = [
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         highScore: 1200
-//     },
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         tezDomain : "tarunsh.tez"
-//     },
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         tezDomain : "tarunsh.tez"
-//     },
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         tezDomain : "tarunsh.tez"
-//     },
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         tezDomain : "tarunsh.tez"
-//     },
-//     {
-//         address : "tz1YvE7Sfo92ueEPEdZceNWd5MWNeMNSt16L",
-//         wins: 10,
-//         lose: 2,
-//         tezDomain : "tarunsh.tez"
-//     },
-// ]
 
 
 
@@ -67,14 +27,16 @@ function Leaderboard() {
 
 
   return (
-    <div className='card'>
+    <div className={styles.card}>
         <h1>Leaderboard</h1>
         <div className="list">
             {
                 LeaderboardStats.map((player,i)=>(
-                    <div className="player">
+                    <div className="player" key={i}>
                         {
-                            (i>=3)?<div className="rank">#{i+1}</div>:<div className="rank top">#{i+1}</div>
+                            (i>=3)?<div className={styles.rank}>#{i+1}</div>:<div className={
+                                styles.rank + " " + styles.top
+                            }>#{i+1}</div>
                         }
                         {
                             (player.tezDomain)?

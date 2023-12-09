@@ -6,7 +6,7 @@ import icon4 from '../../img/icon4.png'
 import blocks from '../../img/blocks.png'
 import zigzag from '../../img/zigzag.png'
 
-import './scss/Works.scss'
+import './scss/Works.css'
 
 function Works() {
   return (

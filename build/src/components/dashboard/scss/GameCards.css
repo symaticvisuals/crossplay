@@ -1,0 +1,247 @@
+.center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+.slide-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.slide-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 300ms ease-in, opacity 300ms ease-in;
+}
+.slide-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+.slide-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 300ms ease-in, opacity 300ms ease-in;
+}
+.wallet-connect-message {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  color : white; 
+  padding: 3rem;
+  font-size: 1.3rem;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #29292970;
+}
+
+.wallet-connect-message button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #E67F22;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.wallet-connect-message button:hover {
+  cursor: pointer;
+}
+.cardWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+.cardWrapper .roomCard {
+  height: 500px;
+  max-width: 440px;
+  border-radius: 20px;
+  background-color: #29292970;
+  overflow: hidden;
+}
+.cardWrapper .roomCard h1 {
+  padding: 0 16px;
+}
+.cardWrapper .roomCard table {
+  border-collapse: collapse;
+  margin: 10px;
+}
+.cardWrapper .roomCard table tr {
+  display: table-row;
+  vertical-align: middle;
+}
+.cardWrapper .roomCard table tr.row {
+  height: auto;
+}
+.cardWrapper .roomCard table button:hover {
+  cursor: pointer;
+}
+.cardWrapper .roomCard table th, .cardWrapper .roomCard table td {
+  padding: 10px;
+  vertical-align: middle;
+}
+.cardWrapper .roomCard table th {
+  min-width: 80px;
+  text-align: left;
+  font-size: 1.15rem;
+}
+@media (max-width: 500px) {
+  .cardWrapper .roomCard table th {
+    display: block;
+    width: 40%;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+  }
+}
+.cardWrapper .roomCard table td {
+  min-width: 70px;
+  width: 35%;
+  border-bottom: solid white 1px;
+  font-size: 1.1rem;
+}
+@media (max-width: 500px) {
+  .cardWrapper .roomCard table td {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+}
+.cardWrapper .roomCard table td.amount {
+  text-align: center;
+}
+@media (max-width: 500px) {
+  .cardWrapper .roomCard table td.amount {
+    font-size: 1rem;
+  }
+}
+.cardWrapper .roomCard table td.button {
+  border: none;
+  text-align: center;
+  width: 100px;
+}
+@media (max-width: 500px) {
+  .cardWrapper .roomCard table td.button {
+    width: 50%;
+    display: inline-block;
+  }
+}
+.cardWrapper .roomCard table td.button button {
+  padding: 10px;
+  font-size: 1rem;
+}
+@media (max-width: 500px) {
+  .cardWrapper .roomCard table td.button button {
+    font-size: 0.9rem;
+    padding: 5px;
+  }
+}
+.cardWrapper .createGame .card {
+  height: 415px;
+}
+.cardWrapper .createGame .card input {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+}
+.cardWrapper .createGame .card .match-data {
+  padding: 0 16px;
+  height: 100px;
+  margin: 20px 0;
+}
+.cardWrapper .createGame .card .match-data p {
+  font-weight: 700;
+  font-size: 24px;
+  margin: 10px 0 0 0;
+}
+.cardWrapper .createGame .card .match-data span {
+  font-size: 20px;
+}
+.cardWrapper .createGame .card .room-name-input {
+  margin: 0 16px;
+}
+.cardWrapper .createGame .card .game-details {
+  width: 100%;
+  padding: 0 10px;
+  height: 100px;
+  box-sizing: border-box;
+}
+.cardWrapper .createGame .card .game-details p {
+  font-size: 12px;
+  margin: 10px 0 0 0;
+}
+.cardWrapper .createGame .card .game-details span {
+  font-size: 14px;
+  font-weight: 700;
+}
+.cardWrapper .createGame .card .game-details .cancel-game {
+  text-decoration: underline;
+  color: red;
+}
+.cardWrapper .createGame .card .game-details .cancel-game:hover {
+  cursor: pointer;
+}
+.cardWrapper .createGame .card img {
+  width: 100%;
+  margin: 20px 0;
+}
+.cardWrapper .createGame .card img.join {
+  margin: 0 !important;
+}
+.cardWrapper .createGame .card .orange-btn {
+  box-sizing: border-box;
+  background: #E67F22;
+  height: 60px;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: block;
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: Sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  padding: 15px 0;
+}
+.cardWrapper .createGame .card .orange-btn i {
+  display: inline-block;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 15px;
+  margin-left: 15px;
+}
+.cardWrapper .createGame .blue-btn:hover {
+  cursor: pointer;
+}
+.cardWrapper .createGame .blue-btn {
+  box-sizing: border-box;
+  background: #1286EB;
+  height: 60px;
+  margin: 20px 0 0 0;
+  width: 100%;
+  display: block;
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: Sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  padding: 15px 0;
+}
+.cardWrapper .createGame .blue-btn i {
+  display: inline-block;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 15px;
+  margin-left: 15px;
+}

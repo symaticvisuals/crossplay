@@ -1,9 +1,8 @@
-import React from 'react';
+
 import "./scss/Home.scss"
 import Navbar from './Navbar';
 import Leaderboard from './Leaderboard';
 import GameCards from './GameCards';
-import { enqueueSnackbar } from 'notistack'
 
 function Home() {
   return (
