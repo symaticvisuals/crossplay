@@ -45,7 +45,7 @@ export const removeGame = async (
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        const transaction = await contract.removeGame("0989e65e-d727-48d8-8143-11f63f0238aa");
+        const transaction = await contract.removeGame(gameID);
         await transaction;
 
         return {

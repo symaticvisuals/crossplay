@@ -42,7 +42,7 @@ const ArbitrumTestnet = {
     name: 'Mantle Testnet',
     currency: 'MNTL',
     explorerUrl: 'https://explorer.mantletestnet.net',
-    rpcUrl: 'https://rpc.mantletestnet.net'
+    rpcUrl: 'https://rpc.testnet.mantle.xyz'
   };
   
   const PolygonZkEVMTestnet = {
