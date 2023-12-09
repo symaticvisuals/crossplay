@@ -1,6 +1,5 @@
-import React from 'react';
 
-const MatchHistory = ({matches}) => {
+const MatchHistory = () => {
   return (
     <div className="match-history">
       <h2>Match History</h2>

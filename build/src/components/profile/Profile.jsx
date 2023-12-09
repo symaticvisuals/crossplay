@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import './scss/Profile.scss';
 import UserProfile from './UserProfile';
 import NFTs from './NFTs';
@@ -7,7 +7,7 @@ import Navbar from '../dashboard/Navbar';
 import axios from "axios";
 
 import { URL } from '../../api/socket';
-import heart from '../../img/heart.png'
+
 import { manageFunc } from '../../providers/state-provider';
 
 const Profile = () => {

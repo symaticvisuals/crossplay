@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import usdt from '../../img/usdt.png'
@@ -59,7 +59,7 @@ const DropdownMenuItem = styled.div`
   cursor: pointer;
 `;
 
-const InputField = ({placeholder, setTokenIndex ,setTokenAmount, tokenAmount}) => {
+const InputField = ({placeholder, setTokenIndex ,setTokenAmount}) => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(tez);

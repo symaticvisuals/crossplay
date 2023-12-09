@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+
 const NFTs = ({nfts}) => {
   return (
     <div className="nft-gallery">

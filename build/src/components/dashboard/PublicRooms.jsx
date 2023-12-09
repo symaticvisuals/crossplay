@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { joinGame } from '../../api/operations/teztris';
 import { useNavigate } from 'react-router-dom';
