@@ -107,12 +107,31 @@ function JoinGame({ swapFunc }) {
 
   return (
     <div className="" style={{
-      color:"white"
+      background: "rgba(15, 15, 15, 0.842)",
+      color: "white",
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      // gap: "20px",
+      justifyContent: "center",
     }}>
       <div className="">
-        <div className="">
+        <div className=""   style={{
+              display: "flex",
+              flexDirection: "column",
+            }}>
           <h1>Join Game</h1>
           <input
+           style={{
+            // styles for input
+            padding: "20px 20px",
+            fontSize: "16px",
+            border: "none",
+            borderRadius: "10px",
+            background: "rgba(255, 255, 255, 0.2)",
+            color: "white",
+            marginTop: "20px",
+          }}
             type="text"
             onChange={handleGameIdInput}
             placeholder="paste game ID here ..."
@@ -120,7 +139,7 @@ function JoinGame({ swapFunc }) {
 
           {response ? (
             response
-          ) : matchData ? (
+          ) : matchData && (
             <div className="">
               <p>Room Name : {matchData.alias}</p>
               <span>
@@ -128,16 +147,53 @@ function JoinGame({ swapFunc }) {
                 {matchData.tokenData.betTokenName}
               </span>
             </div>
-          ) : (
-            <img src={pattern}></img>
-          )}
-          <a href="#" className="" onClick={handlecreateGame}>
-            Join Game
-          </a>
+          ) }
+          
         </div>
       </div>
-      <div className="" onClick={() => swapFunc(false)}>
+      <div className="" style={{
+        display:"flex",
+        marginTop:"20px",
+        gap:"20px",
+      }}
+      >
+
+      <button href="#" className="" style={{
+                // styles for input
+                padding: "20px 20px",
+                fontSize: "16px",
+                flexGrow: "1",
+                borderRadius: "10px",
+              
+                background: "#d14fff",
+                color: "white",
+                marginTop: "20px",
+                marginBottom: "20px",
+                textAlign: "center",
+                display: "block",
+                cursor: "pointer",
+                textDecoration: "none",
+              }} onClick={handlecreateGame}>
+            Join Game
+          </button>
+      <button className="" style={{
+                // styles for input
+                padding: "20px 20px",
+                fontSize: "16px",
+                flexGrow: "1",
+                borderRadius: "10px",
+              
+                background: "#d14fff",
+                color: "white",
+                marginTop: "20px",
+                marginBottom: "20px",
+                textAlign: "center",
+                display: "block",
+                cursor: "pointer",
+                textDecoration: "none",
+              }} onClick={() => swapFunc(false)}>
         {loading ? "Joining.." : "Create Game"}
+      </button>
       </div>
     </div>
   );

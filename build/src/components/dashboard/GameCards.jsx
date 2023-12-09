@@ -16,6 +16,7 @@ function GameCards() {
         userWallet ? (
             <div className='' style={{
                 display:"grid",
+                height:"500px",
                 gridTemplateColumns:"1fr 1fr",
                 marginTop:"20px",
                 gap:"20px",

@@ -165,23 +165,78 @@ function CreateGame({ swapFunc }) {
   // console.log(matchFoundData,response,"matchdata, response")
   return (
     <>
-      <div className="createGame">
-        <div className="card">
-          <div className="center">
+      <div
+        className=""
+        style={{
+          background: "rgba(15, 15, 15, 0.842)",
+          color: "white",
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          // gap: "20px",
+          justifyContent: "center",
+        }}
+      >
+        <div className="">
+          <div
+            className=""
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <h1>Create Game</h1>
-            <InputField
+            <input
+              type="number"
+              style={{
+                // styles for input
+                padding: "20px 20px",
+                fontSize: "16px",
+                border: "none",
+                borderRadius: "10px",
+                background: "rgba(255, 255, 255, 0.2)",
+                color: "white",
+                marginTop: "20px",
+              }}
+              placeholder="Bet token amount"
+              value={tokenAmount}
+              onChange={() => {
+                setTokenAmount(event.target.value);
+              }}
+            />
+            {/* <InputField
               placeholder="Bet token amount"
               setTokenIndex={setTokenIndex}
               setTokenAmount={setTokenAmount}
               tokenAmount={tokenAmount}
-            />
+            /> */}
             <input
-              className="room-name-input"
+              className=""
+              style={{
+                // styles for input
+                padding: "20px 20px",
+                fontSize: "16px",
+                border: "none",
+                // width: "100%",
+                borderRadius: "10px",
+                background: "rgba(255, 255, 255, 0.2)",
+                color: "white",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
               type="text"
               onChange={handleAlisa}
               placeholder="Room name"
             ></input>
-            {createGameEmit ? (
+            <div className="" style={{
+              display:"flex",
+              // justifyContent:"center",
+              gap:"20px",
+              alignItems:"center",
+            }}>
+
+           
+            {createGameEmit && (
               <div className="game-details">
                 <p>Game created, waiting for opponent to join</p>
                 <span>{gameIdInput}</span>
@@ -189,37 +244,58 @@ function CreateGame({ swapFunc }) {
                   cancel game
                 </div>
               </div>
-            ) : (
-              <img className="join" src={pattern}></img>
             )}
 
-            <a
-              href="#"
+            <button
+             
               onClick={() => createGameHandle()}
-              className="orange-btn"
+              style={{
+                // styles for input
+                padding: "20px 20px",
+                fontSize: "16px",
+                flexGrow: "1",
+                borderRadius: "10px",
+              
+                background: "#d14fff",
+                color: "white",
+                marginTop: "20px",
+                marginBottom: "20px",
+                textAlign: "center",
+                display: "block",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
             >
               {loading
                 ? "Loading..."
                 : createGameEmit
                 ? "Waiting..."
                 : "Create Game"}
-            </a>
+            </button>
+            <button
+          style={{
+            padding: "20px",
+            flexGrow: "1",
+            fontSize: "16px",
+            border: "none",
+            borderRadius: "10px",
+            background: "#d14fff",
+            color: "white",
+            marginTop: "20px",
+            marginBottom: "20px",
+            textAlign: "center",
+            display: "block",
+            cursor: "pointer",
+            textDecoration: "none",
+          }}
+          onClick={() => swapFunc(true)}
+        >
+          Join Game
+        </button>
+            </div>
           </div>
         </div>
-        <div className="blue-btn" onClick={() => swapFunc(true)}>
-          Join Game
-        </div>
-
-        <a href="#" onClick={() => createGameHandle()} className="">
-          {loading
-            ? "Loading..."
-            : createGameEmit
-            ? "Waiting..."
-            : "Create Game"}
-        </a>
-      </div>
-      <div className="" onClick={() => swapFunc(true)}>
-        Join Game
+       
       </div>
     </>
   );
