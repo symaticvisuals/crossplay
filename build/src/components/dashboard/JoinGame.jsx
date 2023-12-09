@@ -13,6 +13,9 @@ import {
 import { CONFIG, getChainNameByChainId } from "../../common/const";
 
 
+
+
+
 function JoinGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket);
   const [uuid, setUuid] = useState("");
@@ -103,9 +106,11 @@ function JoinGame({ swapFunc }) {
   }, [startGameID, gameIdInput, navigate]);
 
   return (
-    <div className="createGame">
-      <div className="card">
-        <div className="center">
+    <div className="" style={{
+      color:"white"
+    }}>
+      <div className="">
+        <div className="">
           <h1>Join Game</h1>
           <input
             type="text"
@@ -116,7 +121,7 @@ function JoinGame({ swapFunc }) {
           {response ? (
             response
           ) : matchData ? (
-            <div className="match-data">
+            <div className="">
               <p>Room Name : {matchData.alias}</p>
               <span>
                 Amount : {matchData.tokenData.amount}{" "}
@@ -126,12 +131,12 @@ function JoinGame({ swapFunc }) {
           ) : (
             <img src={pattern}></img>
           )}
-          <a href="#" className="orange-btn" onClick={handlecreateGame}>
+          <a href="#" className="" onClick={handlecreateGame}>
             Join Game
           </a>
         </div>
       </div>
-      <div className="blue-btn" onClick={() => swapFunc(false)}>
+      <div className="" onClick={() => swapFunc(false)}>
         {loading ? "Joining.." : "Create Game"}
       </div>
     </div>
