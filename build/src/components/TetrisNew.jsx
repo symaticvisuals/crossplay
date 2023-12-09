@@ -27,7 +27,7 @@ const Emitter = ({ points, state }) => {
 };
 
 const TetrisNew = () => {
-  // const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
+  const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
   const [opponentScore, setOpponentScore] = useState(Number.MAX_SAFE_INTEGER);
   const { gameOver, setGameOver, gameIdInput, point } = useContext(manageFunc);
   const navigate = useNavigate();
@@ -51,45 +51,45 @@ const TetrisNew = () => {
     }
   };
 
-  //
-  // useEffect(() => {
-  //     socket.once("opponent-ended", (s) => {
-  //       // // console.log("opponent-ended score", s);
-  //       setOpponentScore(parseInt(s));
-  //       setOpponentEnded(true);
-  //       enqueueSnackbar(`Opponent Ended game.`, {anchorOrigin: {
-  //         vertical: 'bottom',
-  //         horizontal: 'right'
-  //       }, variant: 'info' })
-  //     });
-  //   }, []);
+  
+  useEffect(() => {
+      socket.once("opponent-ended", (s) => {
+        // // console.log("opponent-ended score", s);
+        setOpponentScore(parseInt(s));
+        setOpponentEnded(true);
+        enqueueSnackbar(`Opponent Ended game.`, {anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right'
+        }, variant: 'info' })
+      });
+    }, []);
 
-  // useEffect(() => {
-  //     if (gameOver) {
-  //     const endGameParams = {
-  //         "gameId": gameIdInput,
-  //         "score": point
-  //     }
-  //     socket.emit("endGame", endGameParams );
-  //     console.log("gameover emit done", endGameParams , typeof(endGameParams.score));
-  //     setIsModalOpen(true);
-  //     }
-  // }, [gameOver]);
+  useEffect(() => {
+      if (gameOver) {
+      const endGameParams = {
+          "gameId": gameIdInput,
+          "score": point
+      }
+      socket.emit("endGame", endGameParams );
+      console.log("gameover emit done", endGameParams , typeof(endGameParams.score));
+      setIsModalOpen(true);
+      }
+  }, [gameOver]);
 
-  //winner handle
+  // winner handle
 
-  // useEffect(() => {
-  //     socket.once("game-over", (obj) => {
-  //       setGotWinner(true);
-  //       // console.log("game-over object", obj);
-  //     });
-  //     socket.on("issue", (status) => {
-  //       alert(status);
-  //     });
-  //   });
-  //   const handleModalClose = () => {
-  //     setIsModalOpen(false);
-  //   };
+  useEffect(() => {
+      socket.once("game-over", (obj) => {
+        setGameOver(true);
+        // console.log("game-over object", obj);
+      });
+      socket.on("issue", (status) => {
+        alert(status);
+      });
+    });
+    const handleModalClose = () => {
+      setIsModalOpen(false);
+    };
   useEffect(() => {
     if (point >= opponentScore && !winNotif && !gameOver) {
       //   setWinnerDeclare(true)
@@ -142,24 +142,24 @@ const TetrisNew = () => {
     }
   }, [gameOver, opponentEnded]);
 
-  // useEffect(()=>{
-  //   if(gameResult==="lose"){
-  //     handleModalClose();
-  //     setIsModalOpen(true);
-  //   }
-  //   if((gameResult==="win") && gameOver){
-  //     handleModalClose();
-  //     setIsModalOpen(true);
-  //   }
-  // },[gameResult,gameOver])
+  useEffect(()=>{
+    if(gameResult==="lose"){
+      handleModalClose();
+      setIsModalOpen(true);
+    }
+    if((gameResult==="win") && gameOver){
+      handleModalClose();
+      setIsModalOpen(true);
+    }
+  },[gameResult,gameOver])
 
-  // window.onload = function () {
-  //   navigate("/home", { replace: true });
-  // };
+  window.onload = function () {
+    navigate("/home", { replace: true });
+  };
 
-  // useEffect(()=>{
-  //   socket.emit('scoreEmitted',{"score":point})
-  // },[point])
+  useEffect(()=>{
+    socket.emit('scoreEmitted',{"score":point})
+  },[point])
 
   console.log(point, gameOver, "from func");
 
