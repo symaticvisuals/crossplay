@@ -9,16 +9,15 @@ import { manageFunc } from '../../App';
 
 
 
-function CreateGame({ swapFunc }) {
-  const socket = useSelector((state) => state.socket.socket); 
+function JoinGame({ swapFunc }) {
+  const socket = useSelector((state) => state.socket.socket);
   const [uuid, setUuid] = useState('');
   const [response, setResponse] = useState(null);
   const [matchData, setMatchData] = useState(null);
-  const [startGameID , setStartGameID] = useState(null);
+  const [startGameID, setStartGameID] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const {gameIdInput, setGameIdInput , createdGame } = useContext(manageFunc);
+  const { gameIdInput, setGameIdInput, createdGame } = useContext(manageFunc);
   
   const handleGameIdInput = (event) =>{
     setUuid(event.target.value);
@@ -109,4 +108,4 @@ function CreateGame({ swapFunc }) {
   )
 }
 
-export default CreateGame
+export default JoinGame

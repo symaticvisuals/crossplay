@@ -16,18 +16,15 @@ function CreateGame({swapFunc}) {
 
   
   const socket = useSelector((state) => state.socket.socket); 
-  const {gameIdInput, setGameIdInput , setCreatedGame } = useContext(manageFunc);
-  const [tokenIndex , setTokenIndex] = useState(0);
-  const [tokenAmount , setTokenAmount] = useState(0);
-  const [alias , setAlisa] = useState("");
+  const { gameIdInput, setGameIdInput, setCreatedGame } = useContext(manageFunc);
+  const [tokenIndex, setTokenIndex] = useState(0);
+  const [tokenAmount, setTokenAmount] = useState(0);
+  const [alias, setAlias] = useState("");
   const [createGameEmit, setCreateGameEmit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState('');
-  const [matchFoundData, setMatchFoundData] = useState('');
-  const [startGameID , setStartGameID] = useState(null);
-
-
+  const [startGameID, setStartGameID] = useState(null);
   const navigate = useNavigate();
+
 
   // useEffect(()=>{
   //   if(createGameEmit){
@@ -117,46 +114,42 @@ function CreateGame({swapFunc}) {
 
   }
 
-  useEffect(()=>{
-    if(socket){
-      socket.on('game-refunded', (data)=>{
-        // console.log(data,"create game")
+  useEffect(() => {
+    if (socket) {
+      socket.on('game-refunded', (data) => {
         setGameIdInput(null);
         setCreateGameEmit(false);
         setCreatedGame(false);
-      })
-    }
-  },[])
-  // navigate("/app", { replace: true });
+      });
 
-  // listen for "matchFound" or error messages
-  useEffect(()=>{
-    if(socket){
-      socket.on('old-game-found', (data)=>{
-        // console.log(data,"create game")
+      socket.on('old-game-found', (data) => {
         setGameIdInput(data._id);
         setCreateGameEmit(true);
         setCreatedGame(true);
-      })
-    }
-  },[])
+      });
 
-    useEffect(()=>{
-      if(socket){
-        socket.on('start-game',(data)=>{
-          setStartGameID(data._id)
-        })
-      }
-    },[])
-  
-  useEffect(()=>{
-    if((startGameID && gameIdInput) && (startGameID == gameIdInput)){
-          navigate("/app", { replace: true });
+      socket.on('start-game', (data) => {
+        setStartGameID(data._id);
+      });
+
+      // Clean up the event listeners when the component unmounts
+      return () => {
+        socket.off('game-refunded');
+        socket.off('old-game-found');
+        socket.off('start-game');
+      };
     }
-  },[startGameID,gameIdInput])
-  const handleAlisa = (event) =>{
-    setAlisa(event.target.value);
-  }
+  }, [socket, setGameIdInput, setCreatedGame]);
+
+  useEffect(() => {
+    if ((startGameID && gameIdInput) && (startGameID === gameIdInput)) {
+      navigate("/app", { replace: true });
+    }
+  }, [startGameID, gameIdInput, navigate]);
+
+  const handleAlias = (event) => {
+    setAlias(event.target.value);
+  };
   
   // console.log(matchFoundData,response,"matchdata, response")
   return (
@@ -165,7 +158,7 @@ function CreateGame({swapFunc}) {
                 <div className='center'>
                 <h1>Create Game</h1>
                     <InputField placeholder="Bet token amount" setTokenIndex={setTokenIndex} setTokenAmount={setTokenAmount} tokenAmount={tokenAmount}/>
-                    <input className='room-name-input' type="text" onChange={handleAlisa} placeholder='Room name'></input>
+                    <input className='room-name-input' type="text" onChange={handleAlias} placeholder='Room name'></input>
                     { createGameEmit ? 
                         <div className='game-details'>
                           <p>Game created, waiting for opponent to join</p>

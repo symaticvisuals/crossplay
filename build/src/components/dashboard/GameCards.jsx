@@ -5,6 +5,7 @@ import './scss/GameCards.css'
 import PublicRooms from './PublicRooms';
 import { useNavigate } from 'react-router-dom';
 import { manageFunc } from '../../App';
+import JoinGame from './JoinGame';
 
 function GameCards() {
     const [createJoinSwap, setCreateJoinSwap] = useState(false);
@@ -26,7 +27,7 @@ function GameCards() {
               classNames={'slide'}
             >
               {createJoinSwap ? (
-                <CreateGame swapFunc={setCreateJoinSwap} />
+                <JoinGame swapFunc={setCreateJoinSwap} />
               ) : (
                 <CreateGame swapFunc={setCreateJoinSwap} />
               )}
