@@ -42,13 +42,13 @@ const ArbitrumTestnet = {
     name: 'Mantle Testnet',
     currency: 'MNTL',
     explorerUrl: 'https://explorer.mantletestnet.net',
-    rpcUrl: 'https://rpc.mantletestnet.net'
+    rpcUrl: 'https://rpc.testnet.mantle.xyz'
   };
   
   const PolygonZkEVMTestnet = {
     chainId: 1442,
     name: 'Polygon ZkEVM Testnet',
-    currency: 'MATIC',
+    currency: 'ETH',
     explorerUrl: 'https://zkscan.io/polygon',
     rpcUrl: 'https://rpc.public.zkevm-test.net/'
   };

@@ -6,6 +6,7 @@ function Why() {
   return (
     <div className='' style={{
       height:"500px"
+      
     }}>
     <div className='wrapper'>
         <h1>Why WEB3 & EVM?</h1>

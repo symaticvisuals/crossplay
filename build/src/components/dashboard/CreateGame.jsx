@@ -3,8 +3,8 @@ import InputField from "./InputField";
 import pattern from "../../img/zigzag_small.png";
 import {
   useWeb3ModalState,
-  useWeb3ModalAccount,
   useWeb3ModalProvider,
+  useWeb3ModalAccount,
 } from "@web3modal/ethers/react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { createGame, removeGame } from "../../api/operations/teztris";
 import { manageFunc } from "../../App";
-import { CONFIG } from "../../common/const";
-
+import { CONFIG, getChainNameByChainId } from "../../common/const";
 
 function CreateGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket);
@@ -21,10 +20,13 @@ function CreateGame({ swapFunc }) {
     useContext(manageFunc);
   const [tokenIndex, setTokenIndex] = useState(0);
   const [tokenAmount, setTokenAmount] = useState(0);
-  const [alias, setAlias] = useState("");
+  const [alias, setAlisa] = useState("");
   const [createGameEmit, setCreateGameEmit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
+  const [matchFoundData, setMatchFoundData] = useState("");
   const [startGameID, setStartGameID] = useState(null);
+
   const navigate = useNavigate();
 
   const { walletProvider } = useWeb3ModalProvider();
@@ -36,6 +38,8 @@ function CreateGame({ swapFunc }) {
   // },[createGameEmit])
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const { address, chainId, isConnected } = useWeb3ModalAccount();
 
   const createGameHandle = async () => {
     if (createGameEmit) {
@@ -51,17 +55,18 @@ function CreateGame({ swapFunc }) {
     setGameIdInput(tuid);
 
     const createGameJson = {
-      uuid: "123e4567-e89b-12d3-a456-426614174000",
+      uuid: tuid,
       isPublic: true,
-      alias: "test1",
-      chain: "POLYGON",
+      alias: alias,
+      chain: getChainNameByChainId(chainId), //config se
       obj: {
-        amount: 1,
+        amount: tokenAmount,
         betToken: "ETH",
         betTokenType: "ETH",
         betTokenName: "ETH",
       },
     };
+
     // console.log(createGameJson)
     enqueueSnackbar(
       "Creating game, please verify from your wallet.",
@@ -73,11 +78,16 @@ function CreateGame({ swapFunc }) {
       },
       { variant: "info" }
     );
+    console.log(createGameJson, "create game json");
+    console.log(
+      CONFIG[getChainNameByChainId(chainId)].ADDRESS,
+      "create game json"
+    );
     const createGameApi = await createGame(
       tokenAmount,
       tuid,
       walletProvider,
-      CONFIG.ARBITRUM.ADDRESS
+      CONFIG[getChainNameByChainId(chainId)].ADDRESS
     );
     if (createGameApi.success === true) {
       // socket.emit("createNewGame", createGameJson);
@@ -97,7 +107,12 @@ function CreateGame({ swapFunc }) {
   };
 
   const handleRefund = async () => {
-    const removeGameApi = await removeGame(gameIdInput);
+    const removeGameApi = await removeGame(
+      gameIdInput,
+      walletProvider,
+      CONFIG[getChainNameByChainId(chainId)].ADDRESS
+    );
+    console.log(gameIdInput, "remove game api");
     if (removeGameApi.success) {
       // console.log("Game Removed")
       socket.emit("refundGame");
@@ -109,79 +124,104 @@ function CreateGame({ swapFunc }) {
   useEffect(() => {
     if (socket) {
       socket.on("game-refunded", (data) => {
+        // console.log(data,"create game")
         setGameIdInput(null);
         setCreateGameEmit(false);
         setCreatedGame(false);
       });
+    }
+  }, []);
+  // navigate("/app", { replace: true });
 
+  // listen for "matchFound" or error messages
+  useEffect(() => {
+    if (socket) {
       socket.on("old-game-found", (data) => {
+        // console.log(data,"create game")
         setGameIdInput(data._id);
         setCreateGameEmit(true);
         setCreatedGame(true);
       });
+    }
+  }, []);
 
+  useEffect(() => {
+    if (socket) {
       socket.on("start-game", (data) => {
         setStartGameID(data._id);
       });
-
-      // Clean up the event listeners when the component unmounts
-      return () => {
-        socket.off("game-refunded");
-        socket.off("old-game-found");
-        socket.off("start-game");
-      };
     }
-  }, [socket, setGameIdInput, setCreatedGame]);
+  }, []);
 
   useEffect(() => {
-    if (startGameID && gameIdInput && startGameID === gameIdInput) {
+    if (startGameID && gameIdInput && startGameID == gameIdInput) {
       navigate("/app", { replace: true });
     }
-  }, [startGameID, gameIdInput, navigate]);
-
-  const handleAlias = (event) => {
-    setAlias(event.target.value);
+  }, [startGameID, gameIdInput]);
+  const handleAlisa = (event) => {
+    setAlisa(event.target.value);
   };
 
   // console.log(matchFoundData,response,"matchdata, response")
   return (
-    <div className="" style={{}}>
-      <div className="">
-        <div className="">
-          <h1>Create Game</h1>
-          <input type="text" placeholder="Bet token amount" />
-
-         
-          <input
-            className=""
-            type="text"
-            onChange={handleAlias}
-            placeholder="Room name"
-          ></input>
-          {createGameEmit && (
-            <div className="">
-              <p>Game created, waiting for opponent to join</p>
-              <span>{gameIdInput}</span>
-              <div className="cancel-game" onClick={handleRefund}>
-                cancel game
+    <>
+      <div className="createGame">
+        <div className="card">
+          <div className="center">
+            <h1>Create Game</h1>
+            <InputField
+              placeholder="Bet token amount"
+              setTokenIndex={setTokenIndex}
+              setTokenAmount={setTokenAmount}
+              tokenAmount={tokenAmount}
+            />
+            <input
+              className="room-name-input"
+              type="text"
+              onChange={handleAlisa}
+              placeholder="Room name"
+            ></input>
+            {createGameEmit ? (
+              <div className="game-details">
+                <p>Game created, waiting for opponent to join</p>
+                <span>{gameIdInput}</span>
+                <div className="cancel-game" onClick={handleRefund}>
+                  cancel game
+                </div>
               </div>
-            </div>
-          ) }
+            ) : (
+              <img className="join" src={pattern}></img>
+            )}
 
-          <a href="#" onClick={() => createGameHandle()} className="">
-            {loading
-              ? "Loading..."
-              : createGameEmit
-              ? "Waiting..."
-              : "Create Game"}
-          </a>
+            <a
+              href="#"
+              onClick={() => createGameHandle()}
+              className="orange-btn"
+            >
+              {loading
+                ? "Loading..."
+                : createGameEmit
+                ? "Waiting..."
+                : "Create Game"}
+            </a>
+          </div>
         </div>
+        <div className="blue-btn" onClick={() => swapFunc(true)}>
+          Join Game
+        </div>
+
+        <a href="#" onClick={() => createGameHandle()} className="">
+          {loading
+            ? "Loading..."
+            : createGameEmit
+            ? "Waiting..."
+            : "Create Game"}
+        </a>
       </div>
       <div className="" onClick={() => swapFunc(true)}>
         Join Game
       </div>
-    </div>
+    </>
   );
 }
-
 export default CreateGame;
