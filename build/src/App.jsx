@@ -11,6 +11,7 @@ import store from './api/store';
 import { SnackbarProvider } from 'notistack';
 import TetrisDemo from './components/TetrisDemo';
 import { manageFunc } from './providers/state-provider';
+import NetworkSelector from './components/selector/NetworkSelector';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/demo" element={<TetrisDemo />} />
             <Route path="/start" element={<StartGame />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/select" element={<NetworkSelector />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Landing />} />
           </Routes>

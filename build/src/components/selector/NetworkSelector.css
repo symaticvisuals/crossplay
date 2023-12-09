@@ -1,0 +1,68 @@
+/* NetworkSelector.css */
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #000000, #1a1a1a);
+  }
+  
+  .network-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+  }
+  
+  .chain-card {
+    width: calc(30% - 20px);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    background: none;
+    box-shadow: none;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: border 0.3s ease;
+  }
+  
+  .chain-card:hover {
+    border: 2px solid #00FFEA;
+  }
+  
+  .chain-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .chain-name {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Neon border */
+  .chain-card:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    pointer-events: none;
+    border-color: #fff;
+    /* background: linear-gradient(45deg, #FF00D0, #00FFEA); */
+  }
+  
+  .chain-card:active:before {
+    border-width: 4px;
+  }
+  
