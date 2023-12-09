@@ -28,9 +28,10 @@
     padding: 0 1rem;
   }
   .section .wrapper .body .right {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* flex-direction: row-reverse; */
+    /* align-items: center; */
   }
   .section .wrapper .body .right img {
     object-fit: contain;

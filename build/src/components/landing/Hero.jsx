@@ -55,9 +55,9 @@ export default function Hero() {
             <button>Play Now</button>
           </Link>
         </ContentWrapper>
-        <a onClick={scrollToTop} className="scroll">
+        {/* <a onClick={scrollToTop} className="scroll">
           <span></span>
-        </a>
+        </a> */}
       </WrapperHome>
     </>
   );
@@ -83,6 +83,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   h1 {
+    padding-top:100px;
     width: 40%;
     font-size: 52px;
     margin: 6rem 4rem 0 0;
@@ -127,8 +128,7 @@ const ContentWrapper = styled.div`
 `;
 
 const WrapperHome = styled.div`
-  width: 100%;
-  
+  width: 100vw;
   min-height: 100vh;
   background: url(${bgImage}) #000 no-repeat center center fixed;
   -webkit-background-size: cover;

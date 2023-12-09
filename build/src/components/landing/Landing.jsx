@@ -15,7 +15,7 @@ function Landing() {
     <Hero />
     <Info />
     <Works />
-    <Why />
+    {/* <Why /> */}
     {/* <Partners /> */}
     <Footer />
     </div>

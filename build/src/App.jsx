@@ -24,7 +24,11 @@ function App() {
   const [createdGame, setCreatedGame] = useState(false);
 
   return (
-   
+   <div className="" style={{
+    maxWidth:"100vw",
+    overflow:"hidden"
+   }}>
+
     <Provider store={store}>
    
       <SnackbarProvider />
@@ -43,6 +47,7 @@ function App() {
       </BrowserRouter>
       
     </Provider>
+   </div>
   );
 }
 

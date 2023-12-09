@@ -2,9 +2,10 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-  
-
+    background: url('../../../img/pxfuel.jpg');
     background-size: cover;
+
+    
 
     .wrapper{
         padding: 6rem 2rem;
@@ -18,7 +19,7 @@
 
 .home-wrapper {
     background-color: black;
-    background: url('../../../img/pxfuel.jpg');
+   
     // reduce opacity of background color to 0.5
     
 }
