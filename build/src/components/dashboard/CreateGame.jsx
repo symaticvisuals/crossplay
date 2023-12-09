@@ -90,14 +90,12 @@ function CreateGame({ swapFunc }) {
       CONFIG[getChainNameByChainId(chainId)].ADDRESS
     );
     if (createGameApi.success === true) {
-      // socket.emit("createNewGame", createGameJson);
-      enqueueSnackbar("Game created successfully.", {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
-        variant: "success",
-      });
+      socket.emit("createNewGame", createGameJson);
+      enqueueSnackbar('Game created successfully.', {anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+      }, variant: 'success' })
+
       setCreateGameEmit(true);
       setCreatedGame(true);
     } else {
