@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import InputField from './InputField'
 import pattern from '../../img/zigzag_small.png'
-
+import {
+  useWeb3ModalState,
+  useWeb3ModalAccount,
+  useWeb3ModalProvider
+} from '@web3modal/ethers/react'
 import { useSelector } from 'react-redux';
 import {v4 as uuidv4} from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarProvider, enqueueSnackbar } from 'notistack'
 import { createGame, removeGame } from '../../api/operations/teztris';
 import { manageFunc } from '../../App';
+import { CONFIG } from '../../common/const';
 
 
 
 
 function CreateGame({swapFunc}) {
-
   
   const socket = useSelector((state) => state.socket.socket); 
   const {gameIdInput, setGameIdInput , setCreatedGame } = useContext(manageFunc);
@@ -29,34 +33,16 @@ function CreateGame({swapFunc}) {
 
   const navigate = useNavigate();
 
+  const { walletProvider } =  useWeb3ModalProvider();
+
+
   // useEffect(()=>{
   //   if(createGameEmit){
   //     alert("createGameEmit Done")
   //   }
   // },[createGameEmit])
 
-  const tokens = [{
-    betToken: "KT1Uw1oio434UoWFuZTNKFgt5wTM9tfuf7m7",
-    betTokenId: 0,
-    betTokenType: "tez",
-    betTokenDecimal: 6,
-    betTokenName: "tez"
-  },
-  {
-    betToken: "KT1Q4qRd8mKS7eWUgTfJzCN8RC6h9CzzjVJb",
-    betTokenId: 0,
-    betTokenType: "FA1.2",
-    betTokenDecimal: 6,
-    betTokenName: "ctez"
-  },
-  {
-    betToken: "KT1Uw1oio434UoWFuZTNKFgt5wTM9tfuf7m7",
-    betTokenId: 3,
-    betTokenType: "FA2",
-    betTokenDecimal: 6,
-    betTokenName: "USDT"
-  }
-  ]
+ 
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
   const createGameHandle = async() =>{
@@ -73,25 +59,25 @@ function CreateGame({swapFunc}) {
     setGameIdInput(tuid);
 
     const createGameJson = {
-      "uuid": tuid,
+      "uuid": "123e4567-e89b-12d3-a456-426614174000",
       "isPublic": true,
-      "alias": alias,
+      "alias": "test1",
+      "chain": "POLYGON",
       "obj": {
-          "amount": tokenAmount,
-          "betToken": tokens[tokenIndex].betToken,
-          "betTokenType": tokens[tokenIndex].betTokenType,
-          "betTokenId": tokens[tokenIndex].betTokenId,
-          "betTokenName": tokens[tokenIndex].betTokenName
+          "amount": 1,
+          "betToken": "ETH",
+          "betTokenType": "ETH",
+          "betTokenName": "ETH"
       }
-    }
+  }
     // console.log(createGameJson)
     enqueueSnackbar('Creating game, please verify from your wallet.', {anchorOrigin: {
       vertical: 'bottom',
       horizontal: 'right'
     }}, { variant: 'info' })
-    const createGameApi = await createGame(tokenAmount,tokens[tokenIndex].betToken,tokens[tokenIndex].betTokenId,tokens[tokenIndex].betTokenType,tokens[tokenIndex].betTokenDecimal,tuid);
+    const createGameApi = await createGame(tokenAmount,tuid,walletProvider,CONFIG.ARBITRUM.ADDRESS);
     if (createGameApi.success === true) {
-      socket.emit("createNewGame", createGameJson);
+      // socket.emit("createNewGame", createGameJson);
       enqueueSnackbar('Game created successfully.', {anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'right'

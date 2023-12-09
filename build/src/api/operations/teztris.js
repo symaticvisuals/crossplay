@@ -4,19 +4,20 @@ import { BrowserProvider } from 'ethers'
 import { useWeb3ModalProvider } from '@web3modal/ethers/react'
 import { contractABI } from './ABI';
 
+
 // start game
 export const createGame = async (
     betAmount,
     gameID,
-    contractAddress, // address of the deployed contract
+    walletProvider,
+    contractAddress, 
 ) => {
     try {
-        const { walletProvider } = useWeb3ModalProvider();
         const provider = new BrowserProvider(walletProvider);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        const transaction = await contract.startGame(ethers.utils.parseEther(betAmount.toString()), 0, gameID, { value: ethers.utils.parseEther(betAmount.toString()) });
+        const transaction = await contract.startGame(ethers.parseEther(betAmount.toString()), 0, gameID, { value: ethers.parseEther(betAmount.toString()) });
         
         await transaction;
 
