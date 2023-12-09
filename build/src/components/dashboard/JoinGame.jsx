@@ -7,10 +7,10 @@ import { createGame } from "../../api/operations/teztris";
 import { manageFunc } from "../../App";
 
 import {
-
-  useWeb3ModalProvider
+  useWeb3ModalProvider,
+  useWeb3ModalAccount
 } from '@web3modal/ethers/react'
-import { CONFIG } from "../../common/const";
+import { CONFIG, getChainNameByChainId } from "../../common/const";
 
 
 function JoinGame({ swapFunc }) {
@@ -23,6 +23,8 @@ function JoinGame({ swapFunc }) {
   const navigate = useNavigate();
   const { gameIdInput, setGameIdInput, createdGame } = useContext(manageFunc);
   const { walletProvider } =  useWeb3ModalProvider();
+  const { address, chainId, isConnected } = useWeb3ModalAccount()
+
 
   const handleGameIdInput = (event) => {
     const gameUuid = event.target.value;
@@ -75,7 +77,10 @@ function JoinGame({ swapFunc }) {
     // const createGameApi = await createGame(matchData.tokenData.amount,matchData.tokenData.betToken,matchData.tokenData.betTokenId,matchData.tokenData.betTokenType,6,uuid);
     const createGameApi = await createGame(matchData.tokenData.amount,uuid,walletProvider,CONFIG.ARBITRUM.ADDRESS);
     if (createGameApi.success === true) {
-      socket.emit("playerJoins", { gameId: uuid });
+      socket.emit("playerJoins", {
+         "gameId": uuid ,
+         "opponentChain": getChainNameByChainId(chainId),
+      });
       setGameIdInput(uuid);
     }
     setLoading(false);

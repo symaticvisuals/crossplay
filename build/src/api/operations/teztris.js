@@ -37,15 +37,16 @@ export const createGame = async (
 // removeGame
 export const removeGame = async (
     gameID,
-    provider, // Ethereum provider
+    walletProvider, // Ethereum provider
     contractAddress, // address of the deployed contract
 ) => {
     try {
-        const signer = provider.getSigner();
+        const provider = new BrowserProvider(walletProvider);
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        const transaction = await contract.removeGame(gameID);
-        await transaction.wait();
+        const transaction = await contract.removeGame("0989e65e-d727-48d8-8143-11f63f0238aa");
+        await transaction;
 
         return {
             success: true,

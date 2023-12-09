@@ -37,6 +37,15 @@ const CONFIG = {
   //   },
   };
   
+  export function getChainNameByChainId(chainId) {
+    for (const chainName in CONFIG) {
+      if (CONFIG[chainName].CHAIN_ID === chainId) {
+        return chainName.toUpperCase();
+      }
+    }
+    return 'CHAIN NOT FOUND';
+  }
+  
   const ABI = [
       {
           "inputs": [

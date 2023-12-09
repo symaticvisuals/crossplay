@@ -48,7 +48,7 @@ const ArbitrumTestnet = {
   const PolygonZkEVMTestnet = {
     chainId: 1442,
     name: 'Polygon ZkEVM Testnet',
-    currency: 'MATIC',
+    currency: 'ETH',
     explorerUrl: 'https://zkscan.io/polygon',
     rpcUrl: 'https://rpc.public.zkevm-test.net/'
   };
