@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { connectSocketThunk } from "../../api/socketSlice";
 import { useNavigate } from "react-router-dom";
 import { manageFunc } from "../../providers/state-provider";
+import ConnectButton from "../wallet";
 
 function Navbar() {
   const [walletButtonText, setWalletButtonText] = useState(null);
@@ -39,6 +40,7 @@ function Navbar() {
         <img src={teztileLogo} alt="Logo" className={styles.logo} />
       </div>
 
+      <ConnectButton />
       <div className="walletContainer">
         {walletConnected && (
           <img
