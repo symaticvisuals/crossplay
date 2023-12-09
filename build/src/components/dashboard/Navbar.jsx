@@ -10,7 +10,7 @@ import { connectSocketThunk } from "../../api/socketSlice";
 import { useNavigate } from "react-router-dom";
 import { manageFunc } from "../../providers/state-provider";
 import { open } from "../wallet";
-import { IoIosWallet } from 'react-icons/io'; // Import other icons
+import { IoIosWallet, IoIosSwap } from 'react-icons/io'; // Import other icons
 
 
 function Navbar() {
@@ -64,12 +64,22 @@ function Navbar() {
       <div className="walletContainer"
       style={{
         display: "flex",
-    alignItems: "center",
-    columnGap: "10px",
+        alignItems: "center",
+        columnGap: "10px",
       }}>
-        <button onClick={selectNetwork} className={styles.button}>
+        <button onClick={selectNetwork} className={styles.button} style={{
+        display: "flex",
+        alignItems: "center",
+        columnGap: "5px",
+        }}>
           {/* {console.log("isConnected inside return", isConnected)} */}
-          {isConnected ? `${address.slice(0, 5)}...${address.slice(-4)}` : "Connect Wallet"}
+          
+          {isConnected ? <> 
+            <IoIosSwap />
+              {address.slice(0, 5)}...{address.slice(-4)}
+            </>
+            : "Connect Wallet"}
+  
         </button>
         <button onClick={connectWallet} className={styles.button}> 
         <IoIosWallet /> 
