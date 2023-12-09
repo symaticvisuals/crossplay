@@ -127,7 +127,8 @@ const ContentWrapper = styled.div`
 `;
 
 const WrapperHome = styled.div`
-  width: 100vw;
+  width: 100%;
+  
   min-height: 100vh;
   background: url(${bgImage}) #000 no-repeat center center fixed;
   -webkit-background-size: cover;

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { createGame } from '../../api/operations/teztris';
 import { useNavigate } from 'react-router-dom';
 import { manageFunc } from '../../App';
+import "../../components/dashboard/scss/GameCards.css"
 
 function PublicRooms() {
   const socket = useSelector((state) => state.socket.socket); 
@@ -66,6 +67,8 @@ function PublicRooms() {
   }, []);
 
   return (
+    
+
     <div className="roomCard">
       <h1>Public Room</h1>
       <div className="roomsTable">
@@ -93,6 +96,7 @@ function PublicRooms() {
         </table>
       </div>
     </div>
+           
   );
 }
 

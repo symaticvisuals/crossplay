@@ -9,7 +9,7 @@ import { manageFunc } from '../../App';
 
 
 
-function createGame({ swapFunc }) {
+function CreateGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket); 
   const [uuid, setUuid] = useState('');
   const [response, setResponse] = useState(null);
@@ -76,7 +76,7 @@ function createGame({ swapFunc }) {
     if((startGameID && gameIdInput) && (startGameID == gameIdInput)){
          navigate("/app", { replace: true });
     }
-  },[startGameID,gameIdInput])
+  },[startGameID, gameIdInput, navigate])
 
   return (
     <div className='createGame'>
@@ -96,7 +96,7 @@ function createGame({ swapFunc }) {
                       </span>
                       </div>: <img src={pattern}></img>
                     }
-                    <a href="#" class="orange-btn" onClick={handlecreateGame}> 
+                    <a href="#" className="orange-btn" onClick={handlecreateGame}> 
                     Join Game 
                     </a>
                 </div>
@@ -109,4 +109,4 @@ function createGame({ swapFunc }) {
   )
 }
 
-export default createGame
+export default CreateGame

@@ -63,7 +63,7 @@
   background-color: #29292970;
   overflow: hidden;
 }
-.cardWrapper .roomCard h1 {
+.cardWrapper .roomCard h1 {color: #fff;
   padding: 0 16px;
 }
 .cardWrapper .roomCard table {

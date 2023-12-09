@@ -5,6 +5,7 @@ import './scss/GameCards.css'
 import PublicRooms from './PublicRooms';
 import { useNavigate } from 'react-router-dom';
 import { manageFunc } from '../../App';
+
 function GameCards() {
     const [createJoinSwap, setCreateJoinSwap] = useState(false);
     const { userWallet } = useContext(manageFunc);
@@ -27,7 +28,7 @@ function GameCards() {
               {createJoinSwap ? (
                 <CreateGame swapFunc={setCreateJoinSwap} />
               ) : (
-                <createGame swapFunc={setCreateJoinSwap} />
+                <CreateGame swapFunc={setCreateJoinSwap} />
               )}
             </CSSTransition>
           </SwitchTransition>
