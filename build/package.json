@@ -10,6 +10,7 @@
     "@emotion/styled": "^11.6.0",
     "@huddle01/react": "^0.0.17",
     "@mui/material": "^5.11.15",
+    "@pushprotocol/uiweb": "^1.1.22",
     "@reduxjs/toolkit": "^1.9.3",
     "@web3modal/ethers": "^3.4.0",
     "axios": "^1.6.2",
