@@ -1,41 +1,54 @@
-# TezTile
-The first video game to make it into space, is now on Tezos.
+# CrossPlay
+The Pioneering Space Odyssey Game Now Uniting Players on EVM
 
-![banner](banner.png)
+## Devfolio : https://devfolio.co/projects/crossplay-6eea
 
-## Live At : https://www.teztile.xyz/
+## Live At : https://crossplay.vercel.app/
 
-Application is in Ghostnet right now ! To get the Ctez and USDT.e that we use drop us an email at ```contact@teztile.xyz``` or create an issue.
+Application is in Testnet right now!
 
-
-## Demo : https://youtu.be/QKdMILSf3mo
-
+## Demo : https://pastebin.com/evbxdYbY
 
 
-## Deployed Contracts V1
 
-TezTile Game : KT1KY1nnwawbqyXz2g2b9tS7qCaiEidnkZWb
+## Deployed Contracts
 
-TezTile NFTs : KT1UHy8rtoz6puuxPbbwafVxkBAhhNb1yw9M
-
-## Deployed Contracts V2
-
-TezTile Game : KT1FjNorFCBAxvWFK4k15nyiFiGBb4T12Gpx
-
-TezTile NFTs : KT1TVGLKpsT8i7tBQJXQTx7oBnuD9tUXrvjf
-
-## Deployed Contracts Mainnet
-
-Teztile Game : KT1TkkM9g5TB2sZ86aomf1tF2kEVC5Yec6jU
-
-Teztile NFTs : KT1Vz5Epeh12sh3oXZRXCqYe2tTV5phA82AH
-
-
-## Wallets
-
-admin : tz1NhKzAZkzB1SExnt1ECtfvuGE6n5VSLctL
-SOS : tz1NaGu7EisUCyfJpB16ktNxgSqpuMo8aSEk
-Treasury : tz1WwdxyWajE28JnN5FWn2XRR4XcXiBEAC1J
+POLYGON zkEVM: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://rpc.public.zkevm-test.net`,
+    CHAIN_ID: 1442,
+  },
+  ARBITRUM: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://arbitrum-sepolia.blockpi.network/v1/rpc/public `,
+    CHAIN_ID: 421614,
+  },
+  SCROLL: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://sepolia-rpc.scroll.io`,
+    CHAIN_ID: 534351,
+    //https://sepolia.scrollscan.com/address/0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2
+  },
+  CELO: {
+    ADDRESS: "0x4c4dea2a1756468ee0801d980a3d69cbf198a8ac",
+    PROVIDER: `https://alfajores-forno.celo-testnet.org`,
+    CHAIN_ID: 44787,
+  },
+  MANTLE: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://rpc.testnet.mantle.xyz/`,
+    CHAIN_ID: 5001,
+  },
+  BASE: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://sepolia.base.org`,
+    CHAIN_ID: 84532,
+  },
+  OKX: {
+    ADDRESS: "0xaa1732dd78d1acad0379c4d9a1747ab34beaf8c2",
+    PROVIDER: `https://x1testrpc.okx.com/`,
+    CHAIN_ID: 195,
+  },
 
 
 ## To Run in your local machine 
