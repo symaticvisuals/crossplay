@@ -11,9 +11,12 @@ import { enqueueSnackbar } from "notistack";
 import ResultModal from "./Modal";
 import useSound from "use-sound";
 import music from "../img/music.mp3";
-
+import brandLogo from "../img/brand-logo.png";
+import { FaMicrophone } from "react-icons/fa6";
 import {
-  useRoom
+  usePeerIds,
+  useLocalAudio,
+  useRoom,
 } from "@huddle01/react/hooks";
 
 const Emitter = ({ points, state }) => {
@@ -40,7 +43,7 @@ const TetrisNew = () => {
   const [opponentEnded, setOpponentEnded] = useState(false);
   const [winNotif, setwinNotif] = useState(false);
   // const [ score , setScore] = useState(0);
-
+  console.log(huddleId, tokenId,"from game")
   // music module
   const [play, ExposedData] = useSound(music, { volume: 0.25 });
 
@@ -168,15 +171,26 @@ const TetrisNew = () => {
   console.log(point, gameOver, "from func");
   // huddle
     // const { peerIds } = usePeerIds();
-    const { joinRoom } = useRoom({
+    const { joinRoom, state } = useRoom({
       onJoin: () => {
         console.log('Joined room');
       }
     });
-      joinRoom({
-        roomId: huddleId,
-        token: tokenId
-      });
+
+    useEffect(() => {
+      if(state !== "connected" && state !== "connecting" && huddleId && tokenId )
+        {
+          console.log({huddleId, tokenId});
+          joinRoom({
+          roomId: huddleId,
+          token: tokenId
+        });}
+    }, [state, tokenId])
+    
+    
+      
+    
+      const { peerIds } = usePeerIds();
 
       // {
       //   peerIds.map((peerId) => {
@@ -206,6 +220,8 @@ const TetrisNew = () => {
     }, [audioStream]);
 
 
+  //  const {enableAudio} =  useLocalAudio()
+
   return (
     <div className="root-game">
       <ResultModal
@@ -213,6 +229,9 @@ const TetrisNew = () => {
         result={gameResult}
         //  onClose={handleModalClose}
       />
+      <button onClick={enableAudio}>
+        <i><FaMicrophone /></i>
+      </button>
       <Tetris
         keyboardControls={{
           // Default values shown here. These will be used if no

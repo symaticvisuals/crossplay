@@ -74,7 +74,7 @@ console.log(data,"start-game-data")
         huddleRoomId: huddleId,
       }});
       console.log(res.data, "huddle response");
-      setTokenId(res.data.tokenId)
+      setTokenId(res.data.token)
     } catch (e) {
       console.log(e);
     }

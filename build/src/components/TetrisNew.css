@@ -34,7 +34,7 @@
 .game-board{
     border: solid;
     border-color: antiquewhite;
-    width: 25em;
+    width: 20em;
     height: 70vh;
 }
 .score{

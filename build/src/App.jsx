@@ -13,6 +13,8 @@ import TetrisDemo from "./components/TetrisDemo";
 // import { manageFunc } from './providers/state-provider';
 import NetworkSelector from "./components/selector/NetworkSelector";
 import TetrisNew from "./components/TetrisNew";
+import { HuddleProvider, HuddleClient } from '@huddle01/react';
+ 
 
 const manageFunc = React.createContext(null);
 
@@ -25,6 +27,16 @@ function App() {
   const [huddleId, setHuddleId] = useState(null);
   const [tokenId, setTokenId] = useState(null);
 
+  const huddleClient = new HuddleClient({
+    projectId: "EVShSskc5aE_Us8Sscj9O_PPgxh9y6M7",
+    options: {
+      activeSpeakers: {
+        size: 8,
+      },
+    },
+  });
+  
+  
   return (
     <div
       className=""
@@ -33,6 +45,7 @@ function App() {
         overflow: "hidden",
       }}
     >
+      <HuddleProvider client={huddleClient}>
       <Provider store={store}>
         <SnackbarProvider />
         <BrowserRouter>
@@ -67,6 +80,8 @@ function App() {
           </manageFunc.Provider>
         </BrowserRouter>
       </Provider>
+      </HuddleProvider>
+      
     </div>
   );
 }

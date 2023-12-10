@@ -42,7 +42,7 @@ function PublicRooms() {
         huddleRoomId: huddleId,
       }});
       console.log(res.data, "huddle response");
-      setTokenId(res.data.tokenId)
+      setTokenId(res.data.token)
     } catch (e) {
       console.log(e);
     }
