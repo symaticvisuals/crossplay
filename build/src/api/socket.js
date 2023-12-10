@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
-// export const URL = "https://backend.teztris.xyz";
-export const URL = "http://localhost:8080";
+export const URL = "https://crossplay-server-5066e8edfb23.herokuapp.com";
+// export const URL = "http://localhost:8080";
 
 export const connectSocket = (address) => {
   const headers = { auth: address };
