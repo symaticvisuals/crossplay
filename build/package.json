@@ -5,6 +5,7 @@
   "type": "module",
   "node": "21.1.0",
   "dependencies": {
+    "@airstack/airstack-react": "^0.6.1",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.11.15",
