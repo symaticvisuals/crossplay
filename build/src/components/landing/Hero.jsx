@@ -51,7 +51,7 @@ export default function Hero() {
                {" "}EVM
             </span>
           </h1>
-          <Link to={"/home"}>
+          <Link to={"/select"}>
             <button>Play Now</button>
           </Link>
         </ContentWrapper>

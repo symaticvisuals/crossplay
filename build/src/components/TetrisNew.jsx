@@ -17,7 +17,7 @@ import {
 } from "@huddle01/react/hooks";
 
 const Emitter = ({ points, state }) => {
-  const { setGameOver, setPoint,huddleId,tokenId } = useContext(manageFunc);
+  const { setGameOver, setPoint } = useContext(manageFunc);
   useEffect(() => {
     if (state == "LOST") {
       setGameOver(true);
@@ -33,14 +33,13 @@ const TetrisNew = () => {
   const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
   const [opponentScore, setOpponentScore] = useState(Number.MAX_SAFE_INTEGER);
   const { gameOver, setGameOver, gameIdInput, point , huddleId, tokenId} = useContext(manageFunc);
+
   const navigate = useNavigate();
   const [gameResult, setGameResult] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [opponentEnded, setOpponentEnded] = useState(false);
   const [winNotif, setwinNotif] = useState(false);
   // const [ score , setScore] = useState(0);
-
-  console.log(huddleId, tokenId,"huddleId, tokenId")
 
   // music module
   const [play, ExposedData] = useSound(music, { volume: 0.25 });
@@ -56,52 +55,45 @@ const TetrisNew = () => {
     }
   };
 
-  //
+  
   useEffect(() => {
-    socket.once("opponent-ended", (s) => {
-      // // console.log("opponent-ended score", s);
-      setOpponentScore(parseInt(s));
-      setOpponentEnded(true);
-      enqueueSnackbar(`Opponent Ended game.`, {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
-        variant: "info",
+      socket.once("opponent-ended", (s) => {
+        // // console.log("opponent-ended score", s);
+        setOpponentScore(parseInt(s));
+        setOpponentEnded(true);
+        enqueueSnackbar(`Opponent Ended game.`, {anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right'
+        }, variant: 'info' })
       });
-    });
-  }, []);
+    }, []);
 
   useEffect(() => {
-    if (gameOver) {
+      if (gameOver) {
       const endGameParams = {
-        gameId: gameIdInput,
-        score: point,
-      };
-      socket.emit("endGame", endGameParams);
-      console.log(
-        "gameover emit done",
-        endGameParams,
-        typeof endGameParams.score
-      );
+          "gameId": gameIdInput,
+          "score": point
+      }
+      socket.emit("endGame", endGameParams );
+      console.log("gameover emit done", endGameParams , typeof(endGameParams.score));
       setIsModalOpen(true);
-    }
+      }
   }, [gameOver]);
 
-  //winner handle
+  // winner handle
 
   useEffect(() => {
-    socket.once("game-over", (obj) => {
-      setGotWinner(true);
-      // console.log("game-over object", obj);
+      socket.once("game-over", (obj) => {
+        setGameOver(true);
+        // console.log("game-over object", obj);
+      });
+      socket.on("issue", (status) => {
+        alert(status);
+      });
     });
-    socket.on("issue", (status) => {
-      alert(status);
-    });
-  });
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+    const handleModalClose = () => {
+      setIsModalOpen(false);
+    };
   useEffect(() => {
     if (point >= opponentScore && !winNotif && !gameOver) {
       //   setWinnerDeclare(true)
@@ -154,27 +146,26 @@ const TetrisNew = () => {
     }
   }, [gameOver, opponentEnded]);
 
-  useEffect(() => {
-    if (gameResult === "lose") {
+  useEffect(()=>{
+    if(gameResult==="lose"){
       handleModalClose();
       setIsModalOpen(true);
     }
-    if (gameResult === "win" && gameOver) {
+    if((gameResult==="win") && gameOver){
       handleModalClose();
       setIsModalOpen(true);
     }
-  }, [gameResult, gameOver]);
+  },[gameResult,gameOver])
 
   window.onload = function () {
     navigate("/home", { replace: true });
   };
 
-  useEffect(() => {
-    socket.emit("scoreEmitted", { score: point });
-  }, [point]);
+  useEffect(()=>{
+    socket.emit('scoreEmitted',{"score":point})
+  },[point])
 
   console.log(point, gameOver, "from func");
-
   // huddle
     // const { peerIds } = usePeerIds();
     const { joinRoom } = useRoom({
@@ -214,59 +205,73 @@ const TetrisNew = () => {
       }
     }, [audioStream]);
 
-    return (
-      <div className="root-game">
-        <ResultModal
-          isOpen={isModalOpen}
-          result={gameResult}
-          onClose={handleModalClose}
-        />
-        <Tetris
-          keyboardControls={{
-            // Default values shown here. These will be used if no
-            // `keyboardControls` prop is provided.
-            down: "MOVE_DOWN",
-            left: "MOVE_LEFT",
-            right: "MOVE_RIGHT",
-            space: "HARD_DROP",
-            z: "FLIP_COUNTERCLOCKWISE",
-            x: "FLIP_CLOCKWISE",
-            up: "FLIP_CLOCKWISE",
-            p: "TOGGLE_PAUSE",
-            c: "HOLD",
-            shift: "HOLD",
-          }}
-        >
-          {({
-            HeldPiece,
-            Gameboard,
-            PieceQueue,
-            points,
-            linesCleared,
-            state,
-            // controller
-          }) => (
+
+  return (
+    <div className="root-game">
+      <ResultModal
+        isOpen={isModalOpen}
+        result={gameResult}
+        //  onClose={handleModalClose}
+      />
+      <Tetris
+        keyboardControls={{
+          // Default values shown here. These will be used if no
+          // `keyboardControls` prop is provided.
+          down: "MOVE_DOWN",
+          left: "MOVE_LEFT",
+          right: "MOVE_RIGHT",
+          space: "HARD_DROP",
+          z: "FLIP_COUNTERCLOCKWISE",
+          x: "FLIP_CLOCKWISE",
+          up: "FLIP_CLOCKWISE",
+          p: "TOGGLE_PAUSE",
+          c: "HOLD",
+          shift: "HOLD",
+        }}
+      >
+        {({
+          HeldPiece,
+          Gameboard,
+          PieceQueue,
+          points,
+          linesCleared,
+          state,
+          // controller
+        }) => (
+          <div className="" style={{ marginTop: "30px", width: "100%" }}>
             <div
-              className="game-screen"
-              style={{ display: "flex", columnGap: "20px" }}
+              className=""
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              {/* <HeldPiece /> */}
-              <div style={{ color: "#fff" }}>
-                <h1>LFGGG</h1>
-                <div className="score">
-                  <h2>Your Score:</h2>
-                  <p>Points: {}</p>
-                  <p>Lines Cleared: {linesCleared}</p>
-                </div>
-                <div className="instruct">
-                  <h2>Instructions:</h2>
-                  <p>Use Up arrow to rotate</p>
-                  <p>Use left-right arrow to navigate</p>
-                  <p>Use down arrow to speed up</p>
-                </div>
+              <img
+                src={brandLogo}
+                alt=""
+                style={{
+                  width: "12rem",
+                }}
+              />
+            </div>
+              <ScoresCard linesCleared={linesCleared} points={points}/>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                className=""
+                style={{
+                  marginTop: "50px",
+                  marginLeft: "-25px",
+                }}
+              >
+                <Gameboard />
+                <Emitter points={points} state={state} />
               </div>
-              <Gameboard />
-              <Emitter points={points} state={state} />
               {/* {state==='LOST' && (
                     setGameOver(true)
                 )}
@@ -281,10 +286,45 @@ const TetrisNew = () => {
                     </div>
                 )} */}
             </div>
-          )}
-        </Tetris>
-      </div>
-    );
-  };
+          </div>
+        )}
+      </Tetris>
+    </div>
+  );
+};
 
 export default TetrisNew;
+
+const ScoresCard = ({ linesCleared, points }) => {
+  return (
+    <div className="" style={{
+      marginTop: "20px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center", 
+    }}>
+      {/* <HeldPiece /> */}
+     
+      <div style={{  }}>
+        <div className="score" style={{
+          display:"flex",
+          gap:"10px",
+        }}>
+          <p style={{
+            padding: "10px 20px",
+            backgroundColor: "#fff",
+          }}>Score</p>
+          <p style={{
+            padding: "10px 20px",
+            backgroundColor: "#d14fff",
+          }}>Points: {points}</p>
+          <p style={{
+            padding: "10px 20px",
+            backgroundColor: "#ff4e9d",
+          }}>Lines Cleared: {linesCleared}</p>
+        </div>
+       
+      </div>
+    </div>
+  );
+};
