@@ -19,6 +19,8 @@ import {
   useRoom,
 } from "@huddle01/react/hooks";
 
+import brandLogo from "../img/brand-logo.png";
+
 const Emitter = ({ points, state }) => {
   const { setGameOver, setPoint } = useContext(manageFunc);
   useEffect(() => {
@@ -32,7 +34,7 @@ const Emitter = ({ points, state }) => {
   return <></>;
 };
 
-const TetrisNew = () => {
+const TetrisNew = ({peerIds}) => {
   const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
   const [opponentScore, setOpponentScore] = useState(Number.MAX_SAFE_INTEGER);
   const { gameOver, setGameOver, gameIdInput, point , huddleId, tokenId} = useContext(manageFunc);
