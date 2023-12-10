@@ -9,33 +9,47 @@ import {
   useWeb3ModalAccount
 } from '@web3modal/ethers/react'
 import { CONFIG, getChainNameByChainId } from '../../common/const';
+import axios from "axios";
+
 
 function PublicRooms() {
   const socket = useSelector((state) => state.socket.socket);
-  const { gameIdInput, setGameIdInput, createdGame } = useContext(manageFunc);
+  const { gameIdInput, setGameIdInput, createdGame, setHuddleId,huddleId , setTokenId} = useContext(manageFunc);
   const navigate = useNavigate();
   const { walletProvider } =  useWeb3ModalProvider();
   const { address, chainId, isConnected } = useWeb3ModalAccount()
 
-  const rooms = [
-    {
-      name: "room one",
-      betAmount: "12",
-    },
-    {
-      name: "room two",
-      betAmount: "15",
-    },
-    {
-      name: "room three",
-      betAmount: "8",
-    },
-  ];
+  // const rooms = [
+  //   {
+  //     name: "room one",
+  //     betAmount: "12",
+  //   },
+  //   {
+  //     name: "room two",
+  //     betAmount: "15",
+  //   },
+  //   {
+  //     name: "room three",
+  //     betAmount: "8",
+  //   },
+  // ];
 
-  // const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const handleHuddleAt = async () => {
+    try {
+      const res = await axios.post(`${URL}/api/huddleAT`,null, { params: {
+        huddleRoomId: huddleId,
+      }});
+      console.log(res.data, "huddle response");
+      setTokenId(res.data.tokenId)
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handlecreateGame = async (room) => {
+    console.log(room,"inside function")
     if (!room) {
       alert("no match data found");
       return;
@@ -45,6 +59,10 @@ function PublicRooms() {
       return;
     }
     setLoading(true);
+    console.log(room,"inside room function")
+    setHuddleId(room.huddleId);
+    await handleHuddleAt();
+    console.log(room.tokenData.amount,room.roomId,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS,"inside function")
       const createGameApi = await createGame(room.tokenData.amount,room.roomId,walletProvider,CONFIG[getChainNameByChainId(chainId)].ADDRESS);
       // const createGameApi = await createGame(room.tokenData.amount,room.tokenData.betToken,room.tokenData.betTokenId,room.tokenData.betTokenType,6,room.roomId);
       if (createGameApi.success === true) {
@@ -56,7 +74,7 @@ function PublicRooms() {
     }
     setLoading(false);
   };
-
+ 
   useEffect(() => {
     if (socket) {
       socket.on("public-rooms", (data) => {
@@ -67,9 +85,10 @@ function PublicRooms() {
             betAmount:
               room.tokenData.amount + " " + room.tokenData.betTokenName,
             tokenData: room.tokenData,
+            huddleId: room.huddleRoomId,
           };
         });
-        // setRooms(updatedRooms);
+        setRooms(updatedRooms);
       });
     }
   }, []);
@@ -98,7 +117,7 @@ function PublicRooms() {
             <RoomCard
               room={room}
               key={index}
-              handlecreateGame={() => handlecreateGame(room)}
+              func={() => handlecreateGame(room)}
             />
           ))}
         </div>
@@ -109,8 +128,9 @@ function PublicRooms() {
 
 export default PublicRooms;
 
-const RoomCard = ({ room }) => {
-  const { name, betAmount, handlecreateGame } = room;
+const RoomCard = ({ room, func }) => {
+  const { name, betAmount } = room;
+
   return (
     <div className="" style={{
       padding:"20px",
@@ -128,7 +148,7 @@ const RoomCard = ({ room }) => {
 
       </div>
       <div className="button">
-        <button onClick={handlecreateGame} 
+        <button onClick={func} 
         style={{
           background:"#d14fff",
           color:"white",

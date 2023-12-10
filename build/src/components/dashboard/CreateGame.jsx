@@ -13,11 +13,20 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { createGame, removeGame } from "../../api/operations/teztris";
 import { manageFunc } from "../../App";
 import { CONFIG, getChainNameByChainId } from "../../common/const";
+import { URL } from "../../api/socket";
+import axios from "axios";
+
 
 function CreateGame({ swapFunc }) {
   const socket = useSelector((state) => state.socket.socket);
-  const { gameIdInput, setGameIdInput, setCreatedGame } =
-    useContext(manageFunc);
+  const {
+    gameIdInput,
+    setGameIdInput,
+    setCreatedGame,
+    setHuddleId,
+    setTokenId,
+    huddleId,
+  } = useContext(manageFunc);
   const [tokenIndex, setTokenIndex] = useState(0);
   const [tokenAmount, setTokenAmount] = useState(0);
   const [alias, setAlisa] = useState("");
@@ -30,6 +39,26 @@ function CreateGame({ swapFunc }) {
   const navigate = useNavigate();
 
   const { walletProvider } = useWeb3ModalProvider();
+
+  const handleHuddleAt = async () => {
+    try {
+      const res = await axios.post(`${URL}/api/huddleAT`,null, { params: {
+        huddleRoomId: huddleId,
+      }});
+      console.log(res.data, "huddle response");
+      setTokenId(res.data.tokenId)
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    if (huddleId) {
+      handleHuddleAt().then(() => {
+        console.log("huddleAT done");
+      });
+    }
+  }, [huddleId]);
 
   // useEffect(()=>{
   //   if(createGameEmit){
@@ -91,10 +120,13 @@ function CreateGame({ swapFunc }) {
     );
     if (createGameApi.success === true) {
       socket.emit("createNewGame", createGameJson);
-      enqueueSnackbar('Game created successfully.', {anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'right'
-      }, variant: 'success' })
+      enqueueSnackbar("Game created successfully.", {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        variant: "success",
+      });
 
       setCreateGameEmit(true);
       setCreatedGame(true);
@@ -135,7 +167,7 @@ function CreateGame({ swapFunc }) {
   useEffect(() => {
     if (socket) {
       socket.on("old-game-found", (data) => {
-        // console.log(data,"create game")
+        console.log(data, "create game");
         setGameIdInput(data._id);
         setCreateGameEmit(true);
         setCreatedGame(true);
@@ -147,12 +179,20 @@ function CreateGame({ swapFunc }) {
     if (socket) {
       socket.on("start-game", (data) => {
         setStartGameID(data._id);
+        console.log(data, "start-game-data");
+        if (data.huddleRoomId) setHuddleId(data.huddleRoomId);
       });
     }
   }, []);
 
+
+
   useEffect(() => {
     if (startGameID && gameIdInput && startGameID == gameIdInput) {
+      //api-call-huddle-jwt
+      handleHuddleAt().then(() => {
+        console.log("huddleAT call done");
+      });
       navigate("/app", { replace: true });
     }
   }, [startGameID, gameIdInput]);
@@ -226,74 +266,73 @@ function CreateGame({ swapFunc }) {
               onChange={handleAlisa}
               placeholder="Room name"
             ></input>
-            <div className="" style={{
-              display:"flex",
-              // justifyContent:"center",
-              gap:"20px",
-              alignItems:"center",
-            }}>
-
-           
-            {createGameEmit && (
-              <div className="game-details">
-                <p>Game created, waiting for opponent to join</p>
-                <span>{gameIdInput}</span>
-                <div className="cancel-game" onClick={handleRefund}>
-                  cancel game
-                </div>
-              </div>
-            )}
-
-            <button
-             
-              onClick={() => createGameHandle()}
+            <div
+              className=""
               style={{
-                // styles for input
-                padding: "20px 20px",
-                fontSize: "16px",
-                flexGrow: "1",
-                borderRadius: "10px",
-              
-                background: "#d14fff",
-                color: "white",
-                marginTop: "20px",
-                marginBottom: "20px",
-                textAlign: "center",
-                display: "block",
-                cursor: "pointer",
-                textDecoration: "none",
+                display: "flex",
+                // justifyContent:"center",
+                gap: "20px",
+                alignItems: "center",
               }}
             >
-              {loading
-                ? "Loading..."
-                : createGameEmit
-                ? "Waiting..."
-                : "Create Game"}
-            </button>
-            <button
-          style={{
-            padding: "20px",
-            flexGrow: "1",
-            fontSize: "16px",
-            border: "none",
-            borderRadius: "10px",
-            background: "#d14fff",
-            color: "white",
-            marginTop: "20px",
-            marginBottom: "20px",
-            textAlign: "center",
-            display: "block",
-            cursor: "pointer",
-            textDecoration: "none",
-          }}
-          onClick={() => swapFunc(true)}
-        >
-          Join Game
-        </button>
+              {createGameEmit && (
+                <div className="game-details">
+                  <p>Game created, waiting for opponent to join</p>
+                  <span>{gameIdInput}</span>
+                  <div className="cancel-game" onClick={handleRefund}>
+                    cancel game
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => createGameHandle()}
+                style={{
+                  // styles for input
+                  padding: "20px 20px",
+                  fontSize: "16px",
+                  flexGrow: "1",
+                  borderRadius: "10px",
+
+                  background: "#d14fff",
+                  color: "white",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                  textAlign: "center",
+                  display: "block",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+              >
+                {loading
+                  ? "Loading..."
+                  : createGameEmit
+                  ? "Waiting..."
+                  : "Create Game"}
+              </button>
+              <button
+                style={{
+                  padding: "20px",
+                  flexGrow: "1",
+                  fontSize: "16px",
+                  border: "none",
+                  borderRadius: "10px",
+                  background: "#d14fff",
+                  color: "white",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                  textAlign: "center",
+                  display: "block",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+                onClick={() => swapFunc(true)}
+              >
+                Join Game
+              </button>
             </div>
           </div>
         </div>
-       
       </div>
     </>
   );

@@ -2,7 +2,7 @@
 import Tetris from "react-tetris";
 import "./TetrisNew.css";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 
 import { manageFunc } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ import { enqueueSnackbar } from "notistack";
 import ResultModal from "./Modal";
 import useSound from "use-sound";
 import music from "../img/music.mp3";
+
+import {
+  useRoom
+} from "@huddle01/react/hooks";
+
 import brandLogo from "../img/brand-logo.png";
 
 const Emitter = ({ points, state }) => {
@@ -26,10 +31,11 @@ const Emitter = ({ points, state }) => {
   return <></>;
 };
 
-const TetrisNew = () => {
+const TetrisNew = ({peerIds}) => {
   const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
   const [opponentScore, setOpponentScore] = useState(Number.MAX_SAFE_INTEGER);
-  const { gameOver, setGameOver, gameIdInput, point } = useContext(manageFunc);
+  const { gameOver, setGameOver, gameIdInput, point , huddleId, tokenId} = useContext(manageFunc);
+
   const navigate = useNavigate();
   const [gameResult, setGameResult] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -162,6 +168,45 @@ const TetrisNew = () => {
   },[point])
 
   console.log(point, gameOver, "from func");
+  // huddle
+    // const { peerIds } = usePeerIds();
+    const { joinRoom } = useRoom({
+      onJoin: () => {
+        console.log('Joined room');
+      }
+    });
+      joinRoom({
+        roomId: huddleId,
+        token: tokenId
+      });
+
+      // {
+      //   peerIds.map((peerId) => {
+      //     console.log(peerId);
+      // });
+
+    const { stream: audioStream, state: audioState } = peerIds;
+    const audioRef = useRef < HTMLAudioElement > null;
+
+    useEffect(() => {
+      if (audioStream && audioRef.current && audioState === "playable") {
+        audioRef.current.srcObject = audioStream;
+
+        audioRef.current.onloadedmetadata = async () => {
+          try {
+            console.log("here 2");
+            audioRef.current?.play();
+          } catch (error) {
+            console.error(error);
+          }
+        };
+
+        audioRef.current.onerror = () => {
+          console.error("videoCard() | Error is hapenning...");
+        };
+      }
+    }, [audioStream]);
+
 
   return (
     <div className="root-game">
