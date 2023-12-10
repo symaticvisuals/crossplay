@@ -33,7 +33,7 @@ const Emitter = ({ points, state }) => {
   return <></>;
 };
 
-const TetrisNew = ({peerIds}) => {
+const TetrisNew = () => {
   const socket = useSelector((state) => state.socket.socket); // get the socket object from the store
   const [opponentScore, setOpponentScore] = useState(Number.MAX_SAFE_INTEGER);
   const { gameOver, setGameOver, gameIdInput, point , huddleId, tokenId} = useContext(manageFunc);
@@ -232,7 +232,7 @@ const TetrisNew = ({peerIds}) => {
         result={gameResult}
         //  onClose={handleModalClose}
       />
-      <button onClick={enableAudio}>
+      <button >
         <i><FaMicrophone /></i>
       </button>
       <Tetris
