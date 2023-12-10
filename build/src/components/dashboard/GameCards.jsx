@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import CreateGame from './createGame';
+import CreateGame from './CreateGame';
 import './scss/GameCards.css';
 import PublicRooms from './PublicRooms';
 import { useNavigate } from 'react-router-dom';
