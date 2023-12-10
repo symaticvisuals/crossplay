@@ -1,0 +1,130 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+// Define contract with Ownable modifier
+contract GameManagement {
+
+    enum TokenType { ETH, ERC20 }
+    struct Game {
+        uint256 amount;
+        TokenType tokenType;
+        address payable createdBy;
+        address payable winnerAddress;
+        GameStatus gameStatus;
+    }
+
+    ERC20 public token;
+    mapping(string => Game) public games;
+    mapping(address => bool) public admins;
+    mapping(TokenType => uint256) public balances;
+    enum GameStatus { CREATED, WON, FINISHED, REMOVED }
+    address public founder;
+
+    modifier onlyAdmin() {
+        require(admins[msg.sender], "Only admin can call this function");
+        _;
+    }
+
+    constructor(address _token){
+        founder = msg.sender;
+        admins[msg.sender] = true;
+        token = ERC20(_token);
+    }
+
+    function startGame(uint256 amount, TokenType tokenType, string memory gameId) public payable {
+        // Check if amount sent is correct
+        require(msg.value == amount || IERC20(token).balanceOf(msg.sender) == amount, "Amount sent is incorrect");
+        require(games[gameId].gameStatus!=GameStatus.CREATED || games[gameId].gameStatus!=GameStatus.FINISHED || games[gameId].gameStatus!=GameStatus.REMOVED || games[gameId].gameStatus!=GameStatus.WON, "Game already exists");
+
+        // Add game to list
+        games[gameId] = Game({
+            amount: amount,
+            tokenType: tokenType,
+            createdBy: payable(msg.sender),
+            winnerAddress: payable(address(0)),
+            gameStatus: GameStatus.CREATED
+        });
+
+        // Update contract balance
+        balances[tokenType] += amount;
+    }
+
+    // Entrypoint to win a game (Admin only)
+    function win(string memory gameId, address payable winnerAddress) public onlyAdmin {
+        require(games[gameId].gameStatus == GameStatus.CREATED, "Game is not in progress");
+
+        // Update game winner
+        games[gameId].winnerAddress = winnerAddress;
+        games[gameId].gameStatus = GameStatus.WON;
+
+        // Payout amount to winner
+        if (games[gameId].tokenType == TokenType.ETH) {
+            games[gameId].winnerAddress.transfer(games[gameId].amount);
+        } else {
+            IERC20(token).transfer(games[gameId].winnerAddress, games[gameId].amount);
+        }
+    }
+
+    // Entrypoint to remove a game (Game creator)
+    function removeGame(string memory gameId) public {
+        require(games[gameId].createdBy == msg.sender, "Only game creator can remove it");
+        require(games[gameId].gameStatus == GameStatus.CREATED, "Game cannot be removed");
+
+        // Return funds to game creator
+        if (games[gameId].tokenType == TokenType.ETH) {
+            games[gameId].createdBy.transfer(games[gameId].amount);
+        } else {
+            IERC20(token).transfer(games[gameId].createdBy, games[gameId].amount);
+        }
+
+        // Delete game from storage
+        delete games[gameId];
+
+        // Update contract balance
+        balances[games[gameId].tokenType] -= games[gameId].amount;
+    }
+
+    // Entrypoint to finish a game (Admin only)
+    function finishGame(string memory gameId) public onlyAdmin {
+        require(games[gameId].gameStatus != GameStatus.FINISHED, "Game is already finished");
+
+        delete games[gameId];
+    }
+
+    // Entrypoint to add liquidity (Admin only)
+    function addLiquidity(address erc20Token, uint256 erc20Amount) public payable onlyAdmin {
+        balances[TokenType.ETH] += msg.value;
+        IERC20(erc20Token).transferFrom(msg.sender, address(this), erc20Amount);
+        balances[TokenType.ERC20] += erc20Amount;
+    }
+
+    // Entry point for removing liquidity
+    function removeLiquidity(uint256 amountEth, address erc20Token, uint256 amountErc20) public onlyAdmin {
+        // Check if sufficient balance exists
+        require(address(this).balance >= amountEth, "Insufficient ETH balance");
+        require(IERC20(erc20Token).balanceOf(address(this)) >= amountErc20, "Insufficient ERC20 balance");
+
+        // Remove ETH from contract
+        payable(msg.sender).transfer(amountEth);
+        balances[TokenType.ETH] -= amountEth;
+
+        // Remove ERC20 tokens from contract
+        IERC20(erc20Token).transfer(msg.sender, amountErc20);
+        balances[TokenType.ERC20] -= amountErc20;
+    }
+
+    // Entry point for adding admin
+    function addAdmin(address newAdmin) public onlyAdmin {
+        require(!admins[newAdmin], "Address already an admin");
+        admins[newAdmin] = true;
+    }
+
+    // Entry point for removing admin (can only remove yourself)
+    function removeAdmin() public {
+        require(admins[msg.sender], "Only admins can remove themselves");
+        admins[msg.sender] = false;
+    }
+}
