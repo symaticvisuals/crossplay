@@ -19,7 +19,6 @@ import {
   useRoom,
 } from "@huddle01/react/hooks";
 
-import brandLogo from "../img/brand-logo.png";
 
 const Emitter = ({ points, state }) => {
   const { setGameOver, setPoint } = useContext(manageFunc);
