@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Avatar1 from "../img/avatar.jpg";
 import Avatar2 from "../img/avatar.webp";
 import Avatar3 from "../img/avatar3.jpeg";
+import { URL } from "../api/socket";
 
 const players = [
   {
@@ -38,22 +39,28 @@ const players = [
   },
 ];
 
+
+
 function LeaderboardC() {
   const [leaderboardStats, setLeaderboard] = useState([]);
-  const getLeaderboard = async () => {
-    const res = await axios.get(`${URL}/api/leaderboard?highscore=-1&limit=3`);
-    const data = res.data.users;
-    const formattedResponse = data.map((player) => ({
-      address: player._id,
-      wins: player.won,
-      lose: player.lost,
-      highScore: player.highScore,
-    }));
+  const getLeaderboard = async () =>{
+    const res = await axios.get(
+        `${URL}/api/leaderboard?highscore=-1&limit=10`
+      );
+    const data = res.data.users; 
+    const formattedResponse = data.map(player => ({
+        address: player._id,
+        wins: player.won,
+        lose: player.lost,
+        highScore: player.highScore,
+      }))
     return formattedResponse;
-  };
+}
+
 
   useEffect(() => {
     getLeaderboard().then((r) => setLeaderboard(r));
+    console.log("get leaderboard call done",leaderboardStats)
   }, []);
 
   return (
@@ -67,7 +74,7 @@ function LeaderboardC() {
           gap: "20px",
         }}
       >
-        {players.map((player, i) => (
+        {leaderboardStats.map((player, i) => (
           <PlayerCard player={player} key={i} />
         ))}
       </div>
@@ -78,7 +85,7 @@ function LeaderboardC() {
 export default LeaderboardC;
 
 const PlayerCard = ({ player }) => {
-  const { position, address, xp, score, profile } = player;
+  const { address, xp, highScore , wins , lose } = player;
   return (
     <div
       className=""
@@ -103,7 +110,7 @@ const PlayerCard = ({ player }) => {
       }}
     >
       <img
-        src={profile}
+        src={Avatar1}
         alt=""
         style={{
           // width:"200px",
@@ -137,12 +144,12 @@ const PlayerCard = ({ player }) => {
               textAlign: "center",
             }}
           >
-            {address}
+            {address.slice(0, 5)}...{address.slice(-4)}
           </p>
           <h4
             style={{ textAlign: "center", marginTop: "10px", color: "white" }}
           >
-            {xp}XP
+            {highScore} Score
           </h4>
 
           <div className="" style={{
@@ -152,9 +159,9 @@ const PlayerCard = ({ player }) => {
             gap:"20px",
             marginTop:"10px"
           }}>
-            <h5>{score.won} Wins</h5>
+            <h5>{wins} Wins</h5>
 
-            <h5>{score.loss} Loss</h5>
+            <h5>{lose} Loss</h5>
           </div>
         </div>
       </div>
