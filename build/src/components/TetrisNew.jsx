@@ -80,6 +80,8 @@ const TetrisNew = () => {
       }
   }, [gameOver]);
 
+  
+
   // winner handle
 
   useEffect(() => {
